@@ -30,18 +30,16 @@ public:
 
 private slots:
     void on_genCSRBtn_clicked();
-
     void on_refreshBtn_clicked();
-
     void on_importBtn_clicked();
-
-
+    void on_exportBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
 
 
 
+    void listCerts();
 };
 
 #endif // MAINWINDOW_H

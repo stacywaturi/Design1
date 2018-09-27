@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "gencsr.h"
 #include "import.h"
+#include "export.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     else
       ui->label2->setText("Connected to DB");
+
+    listCerts();
 
 }
 
@@ -67,6 +70,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_refreshBtn_clicked()
 {
+
+}
+void MainWindow::listCerts()
+{
     QSqlQueryModel *modal = new QSqlQueryModel();
     DBConnOpen();
 
@@ -75,13 +82,16 @@ void MainWindow::on_refreshBtn_clicked()
 
     qry->exec();
     modal->setQuery(*qry);
+
+    DBConnClose();
     ui->tableView->setModel(modal);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    QItemSelectionModel *select = ui->tableView->selectionModel();
+    QModelIndexList selectedList = ui->tableView->selectionModel()->selectedRows();
+    for( int i=0; i<selectedList.count(); i++)
+            QMessageBox::information(this,tr(""), QString::number(selectedList.at(i).row()));
 
-
-    DBConnClose();
+   // qDebug() << selectedList;
     qDebug() << (modal->rowCount());
 
 
@@ -89,13 +99,18 @@ void MainWindow::on_refreshBtn_clicked()
 
 void MainWindow::on_importBtn_clicked()
 {
-    DBConnClose();
-    Import *importObj;
 
-    importObj = new Import(this);
+    DBConnClose();
+    Import *importObj= new Import(this);
     importObj->setModal(true);
     importObj->exec();
 
 }
 
-
+void MainWindow::on_exportBtn_clicked()
+{
+    DBConnClose();
+    Export *exportObj = new Export(this);
+    exportObj->setModal(true);
+    exportObj->exec();
+}

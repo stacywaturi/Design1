@@ -26,18 +26,21 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     gencsr.cpp \
-    import.cpp
+    import.cpp \
+    export.cpp
 
 HEADERS += \
         mainwindow.h \
     gencsr.h \
     gencsr.h \
-    import.h
+    import.h \
+    export.h
 
 FORMS += \
         mainwindow.ui \
     gencsr.ui \
-    import.ui
+    import.ui \
+    export.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
