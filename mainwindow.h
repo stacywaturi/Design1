@@ -6,6 +6,7 @@
 #include <QtSql>
 #include <QtDebug>
 #include <QFileInfo>
+#include <QtWidgets>
 
 #include "gencsrwindow.h"
 
@@ -34,8 +35,13 @@ private slots:
     void on_importBtn_clicked();
     void on_exportBtn_clicked();
 
+    void slotSelectionChange(const QItemSelection &, const QItemSelection &);
+    void on_viewCertBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
+    QSqlQueryModel *modal = new QSqlQueryModel();
+    int intIndx =0;
 
 
 

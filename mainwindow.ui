@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>676</width>
-    <height>428</height>
+    <width>764</width>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -101,6 +101,22 @@
       </rect>
      </property>
     </widget>
+    <widget class="QPushButton" name="viewCertBtn">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>290</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>View Certificate</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="label2">
     <property name="geometry">
@@ -134,7 +150,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>676</width>
+     <width>764</width>
      <height>21</height>
     </rect>
    </property>

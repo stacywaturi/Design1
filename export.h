@@ -12,7 +12,7 @@ class Export : public QDialog
     Q_OBJECT
 
 public:
-    explicit Export(QWidget *parent = nullptr);
+    explicit Export(QWidget *parent = nullptr, int num= 0);
     ~Export();
 
 private:
