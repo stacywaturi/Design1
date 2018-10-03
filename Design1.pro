@@ -27,7 +27,10 @@ SOURCES += \
         mainwindow.cpp \
     gencsr.cpp \
     import.cpp \
-    export.cpp
+    export.cpp \
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/Certificate.cpp \
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/tf_cert_util.cpp \
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.c
 
 HEADERS += \
         mainwindow.h \
@@ -35,7 +38,11 @@ HEADERS += \
     gencsr.h \
     import.h \
     export.h \
-    ../../../Desktop/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.h
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/Certificate.h \
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.h \
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3ext.h \
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/tf_cert_util.h \
+
 
 FORMS += \
         mainwindow.ui \
@@ -48,7 +55,26 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\tf_cert_mngr\tf_cert_mngr
+
+LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\tf_cert_mngr\tf_cert_mngr\openssl-1.1.0a-x86_32\lib\libcrypto.lib
+LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\tf_cert_mngr\tf_cert_mngr\openssl-1.1.0a-x86_32\lib\libssl.lib
+
+
+
 DISTFILES += \
     countries.txt
 
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibcrypto
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibcryptod
+
+INCLUDEPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include
+DEPENDPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibssl
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibssld
+
+INCLUDEPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include
+DEPENDPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include

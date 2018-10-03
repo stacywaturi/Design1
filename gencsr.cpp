@@ -1,11 +1,18 @@
 #include "gencsr.h"
 #include "ui_gencsr.h"
 
+int	TF_CERT_ERROR_INDEX = TF_CERT_no_error;
+std::string	LOG_FILE_CERTMNGR	= "log_cert_mngr.log";
+std::string  DB_FILE_NAME="test.db";
+
 GenCSR::GenCSR(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::GenCSR)
 {
     ui->setupUi(this);
+
+    openssl_init();
+
 
     MainWindow main_window;
     if (!main_window.DBConnOpen())
@@ -81,14 +88,15 @@ void GenCSR::addKeySizesItems()
 void GenCSR::on_genCSRButton_clicked()
 {
     MainWindow conn;
-    QString name,org,country,province,city,keySize;
+    QString name,org,country,province,city;
+    int keySize;
 
     //    name = ui->commonNameLineEdit->text();
     //    org = ui->organizationLineEdit->text();
     //    country = ui->countryComboBox->currentText();
     //    province = ui->provinceLineEdit->text();
     //    city = ui->cityLineEdit->text();
-    keySize = ui->keySizesComboBox->currentText();
+    keySize = ui->keySizesComboBox->currentText().toInt();
 
     //    qDebug()<< name;
     //    qDebug()<< org;
@@ -97,6 +105,21 @@ void GenCSR::on_genCSRButton_clicked()
     //    qDebug()<< city;
     //    qDebug()<< keySize;
 
+    std::string prvtKey = cert->generatePvtKey(keySize);
+    std::cout << prvtKey <<std::endl;
+    cert->generateCSR();
+    std::cout << "\n\nCSR\n" << cert->getCertReq() << std::endl;
+
+    std::cout << "\n\nPUBLIC KEY FROM PRIVATE KEY\n" << cert->private2PublicKey();
+    std::cout << "\n\nPUBLIC KEY FROM CERTIFICATE SIGNING REQUEST\n" << cert->CSR2PublicKey();
+    std::cout << "\n\nCERTIFICATE SIGNING REQUEST DETAILS:\n" << cert->displayCSR();
+
+
+    //GenCSR function
+
+    //if GenCSR successful then
+    //Message success
+    this->close();
     if(!conn.DBConnOpen())
     {
         qDebug() << "Failed to open DB";
@@ -106,21 +129,21 @@ void GenCSR::on_genCSRButton_clicked()
     conn.DBConnOpen();
 
     //Write to Database
-    QSqlQuery qry;
-    qry.prepare("insert into genCSRTable (keySize) values('"+keySize+"')");
-    //     qry.prepare("insert into genCSRTable (name,org,country,province,city,keySize) "
-    //                 "values ('"+name+"','"+org+"','"+country+"','"+province+"','"+city+"','"+keySize+"' ) ");
+    //    QSqlQuery qry;
+    //    qry.prepare("insert into genCSRTable (keySize) values('"+keySize+"')");
+    //         qry.prepare("insert into genCSRTable (name,org,country,province,city,keySize) "
+    //                     "values ('"+name+"','"+org+"','"+country+"','"+province+"','"+city+"','"+keySize+"' ) ");
 
-    if(qry.exec())
-    {
-        QMessageBox::critical(this,tr("Save"), tr("Saved"));
-        conn.DBConnClose();
-    }
+    //    if(qry.exec())
+    //    {
+    //        QMessageBox::critical(this,tr("Save"), tr("Saved"));
+    //        conn.DBConnClose();
+    //    }
 
-    else
-    {
-        QMessageBox::critical(this,tr("error::"), qry.lastError().text());
-    }
+    //    else
+    //    {
+    //        QMessageBox::critical(this,tr("error::"), qry.lastError().text());
+    //    }
 
 }
 

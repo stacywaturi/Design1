@@ -6,14 +6,13 @@
 #include <QtCore>
 #include <QtGui>
 #include <QMessageBox>
-
+#include "Certificate.h"
 #include "mainwindow.h"
-
-
 
 namespace Ui {
 class GenCSR;
 }
+
 
 class GenCSR : public QDialog
 {
@@ -22,6 +21,10 @@ class GenCSR : public QDialog
 public:
 
     explicit GenCSR(QWidget *parent = nullptr);
+
+    Certificate *cert = new Certificate();
+
+
     ~GenCSR();
 
 

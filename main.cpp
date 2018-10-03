@@ -1,8 +1,7 @@
 #include "mainwindow.h"
+#include "openssl/applink.c"
 #include <QApplication>
-#include "stdio.h"
-
-
+#include <QtDebug>
 
 int main(int argc, char *argv[])
 {
