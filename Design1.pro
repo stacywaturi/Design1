@@ -34,7 +34,8 @@ HEADERS += \
     gencsr.h \
     gencsr.h \
     import.h \
-    export.h
+    export.h \
+    ../../../Desktop/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.h
 
 FORMS += \
         mainwindow.ui \
@@ -49,3 +50,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     countries.txt
+
+

@@ -30,6 +30,10 @@ private slots:
 
     void on_genCSRButton_clicked();
 
+
+
+    void on_create_password_privatekey_radioButton_clicked();
+
 private:
     Ui::GenCSR *ui;
     void addCountryItems();

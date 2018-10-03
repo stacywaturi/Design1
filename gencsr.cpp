@@ -15,38 +15,38 @@ GenCSR::GenCSR(QWidget *parent) :
     else
         ui->label->setText("Connected to DB");
 
-    addCountryItems();
+    //addCountryItems();
     addKeySizesItems();
 
 }
 //void genCSR::on_comboBox_clicked()
 
-void GenCSR::addCountryItems()
-{
+//void GenCSR::addCountryItems()
+//{
 
-    qDebug() << "Adding Country Items" ;
-    ui->countryComboBox->setMaxVisibleItems(8);
-    //  ui->countryComboBox ->setEditable(true);
+//    qDebug() << "Adding Country Items" ;
+//    ui->countryComboBox->setMaxVisibleItems(8);
+//    //  ui->countryComboBox ->setEditable(true);
 
-    QFile file("C:/Users/Stacy/Documents/qt/Design1/countries.txt");
+//    QFile file("C:/Users/Stacy/Documents/qt/Design1/countries.txt");
 
 
-    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QTextStream in(&file);
-        QString line;
+//    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+//    {
+//        QTextStream in(&file);
+//        QString line;
 
-        while(!in.atEnd())
-        {
-            line = in.readLine();
-            //            qDebug() << line ;
-            ui->countryComboBox->addItem(line);
-        }
-        in.flush();
+//        while(!in.atEnd())
+//        {
+//            line = in.readLine();
+//            //            qDebug() << line ;
+//            ui->countryComboBox->addItem(line);
+//        }
+//        in.flush();
 
-        file.close ();
-    }
-}
+//        file.close ();
+//    }
+//}
 
 void GenCSR::addKeySizesItems()
 {
@@ -66,7 +66,7 @@ void GenCSR::addKeySizesItems()
         while(!in.atEnd())
         {
             line = in.readLine();
-            //            qDebug() << line ;
+            //qDebug() << line ;
             ui->keySizesComboBox->addItem(line);
         }
         in.flush();
@@ -83,19 +83,19 @@ void GenCSR::on_genCSRButton_clicked()
     MainWindow conn;
     QString name,org,country,province,city,keySize;
 
-    name = ui->commonNameLineEdit->text();
-    org = ui->organizationLineEdit->text();
-    country = ui->countryComboBox->currentText();
-    province = ui->provinceLineEdit->text();
-    city = ui->cityLineEdit->text();
+    //    name = ui->commonNameLineEdit->text();
+    //    org = ui->organizationLineEdit->text();
+    //    country = ui->countryComboBox->currentText();
+    //    province = ui->provinceLineEdit->text();
+    //    city = ui->cityLineEdit->text();
     keySize = ui->keySizesComboBox->currentText();
 
-//    qDebug()<< name;
-//    qDebug()<< org;
-//    qDebug()<< country;
-//    qDebug()<< province;
-//    qDebug()<< city;
-//    qDebug()<< keySize;
+    //    qDebug()<< name;
+    //    qDebug()<< org;
+    //    qDebug()<< country;
+    //    qDebug()<< province;
+    //    qDebug()<< city;
+    //    qDebug()<< keySize;
 
     if(!conn.DBConnOpen())
     {
@@ -105,9 +105,11 @@ void GenCSR::on_genCSRButton_clicked()
 
     conn.DBConnOpen();
 
-     QSqlQuery qry;
-     qry.prepare("insert into genCSRTable (name,org,country,province,city,keySize) "
-                 "values ('"+name+"','"+org+"','"+country+"','"+province+"','"+city+"','"+keySize+"' ) ");
+    //Write to Database
+    QSqlQuery qry;
+    qry.prepare("insert into genCSRTable (keySize) values('"+keySize+"')");
+    //     qry.prepare("insert into genCSRTable (name,org,country,province,city,keySize) "
+    //                 "values ('"+name+"','"+org+"','"+country+"','"+province+"','"+city+"','"+keySize+"' ) ");
 
     if(qry.exec())
     {
@@ -125,4 +127,11 @@ void GenCSR::on_genCSRButton_clicked()
 GenCSR::~GenCSR()
 {
     delete ui;
+}
+
+
+void GenCSR::on_create_password_privatekey_radioButton_clicked()
+{
+    ui->hBoxCreatePassword->setEnabled(true);
+
 }

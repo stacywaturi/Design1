@@ -115,14 +115,14 @@ void MainWindow::listCerts()
 void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelection &)
 {
     ui->viewCertBtn->setEnabled(true);
-
+    ui->exportBtn->setEnabled(true);
     //   QModelIndexList selection = ui->tableView->selectionModel()->selectedRows();//Here you are getting the indexes of the selected rows
     QModelIndexList indexes = ui->tableView->selectionModel()->selectedIndexes();
-    QModelIndex index ;
+    QModelIndex index;
 
     QString text;
     foreach(index, indexes) {
-        //    text = QString("(%1)").arg(index.row());
+        //text = QString("(%1)").arg(index.row());
         intIndx = index.row();
         modal->setData(index, text);
 
@@ -150,7 +150,7 @@ void MainWindow::on_importBtn_clicked()
 void MainWindow::on_exportBtn_clicked()
 {
     DBConnClose();
-    Export *exportObj = new Export(this,9);
+    Export *exportObj = new Export(this,intIndx);
     exportObj->setModal(true);
     exportObj->exec();
 }

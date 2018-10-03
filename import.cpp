@@ -20,9 +20,9 @@ void Import::on_browseImport_Button_clicked()
                 tr("Open File"),
                 "C://",
 
-                "All Certificate Types (*.pfx,*.p12,*.cer,*.crt,*.p7b);;"
-                "Personal Information Exchange(*.pfx,*.p12);;"
-                "X.509 Certificate (*.cer,*.crt);;"
+                "All Certificate Types (*.pfx *.p12 *.cer *.crt *.p7b);;"
+                "Personal Information Exchange(*.pfx, *.p12);;"
+                "X.509 Certificate (*.cer, *.crt);;"
                 "PKCS#7 Certificates (*.p7b);;"
                 "All Types (*.*)"
 

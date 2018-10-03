@@ -7,6 +7,7 @@
 #include <QtDebug>
 #include <QFileInfo>
 #include <QtWidgets>
+#include <math.h>
 
 #include "gencsrwindow.h"
 
