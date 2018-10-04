@@ -11,6 +11,7 @@
 
 namespace Ui {
 class GenCSR;
+class Display;
 }
 
 
@@ -33,9 +34,11 @@ private slots:
 
     void on_genCSRButton_clicked();
 
+   void on_create_password_privatekey_radioButton_clicked();
 
+    void on_createPassword_Btn_clicked();
 
-    void on_create_password_privatekey_radioButton_clicked();
+    void on_pushButton_2_clicked();
 
 private:
     Ui::GenCSR *ui;

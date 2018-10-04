@@ -2,6 +2,7 @@
 #define IMPORT_H
 
 #include <QDialog>
+#include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
 

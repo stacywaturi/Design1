@@ -30,7 +30,8 @@ SOURCES += \
     export.cpp \
     tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/Certificate.cpp \
     tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/tf_cert_util.cpp \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.c
+    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.c \
+    dialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,13 +43,15 @@ HEADERS += \
     tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.h \
     tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3ext.h \
     tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/tf_cert_util.h \
+    dialog.h
 
 
 FORMS += \
         mainwindow.ui \
     gencsr.ui \
     import.ui \
-    export.ui
+    export.ui \
+    dialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

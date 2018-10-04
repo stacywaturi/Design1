@@ -27,6 +27,20 @@ void Import::on_browseImport_Button_clicked()
                 "All Types (*.*)"
 
                 );
+    qDebug() << filename;
 
-    QMessageBox::information(this,tr("File Name"), filename);
+    QString cert;
+
+    QFile file(filename);
+    QTextStream stream(&file);
+    if (file.open(QIODevice::ReadOnly)){
+        while(!stream.atEnd()){
+            cert.append(stream.readLine());
+        }
+    }
+
+   // qDebug() <<certList;
+
+
+    QMessageBox::information(this,tr("Raw Cert"), cert);
 }
