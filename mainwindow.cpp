@@ -36,7 +36,7 @@ void MainWindow::DBConnClose()
 bool MainWindow::DBConnOpen()
 {
     mydb= QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("C:/sqlite3/certs.db");
+    mydb.setDatabaseName("cert_mngr.db");
 
     if (!mydb.open())
     {
@@ -70,6 +70,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_refreshBtn_clicked()
 {
+    listCerts();
 
 }
 void MainWindow::listCerts()
@@ -78,7 +79,7 @@ void MainWindow::listCerts()
     DBConnOpen();
 
     QSqlQuery *qry = new QSqlQuery(mydb);
-    qry->prepare("select * from Ceritficates");
+    qry->prepare("select * from certificate");
 
     qry->exec();
     modal->setQuery(*qry);

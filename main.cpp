@@ -1,11 +1,12 @@
 #include "mainwindow.h"
-#include "openssl/applink.c"
 #include <QApplication>
 #include <QtDebug>
+#include "TFCertificate.h"
+
+
 
 int main(int argc, char *argv[])
 {
-
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

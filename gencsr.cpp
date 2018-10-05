@@ -1,9 +1,12 @@
 #include "gencsr.h"
 #include "ui_gencsr.h"
 #include "dialog.h"
-int	TF_CERT_ERROR_INDEX = TF_CERT_no_error;
-std::string	LOG_FILE_CERTMNGR	= "log_cert_mngr.log";
-std::string  DB_FILE_NAME="test.db";
+
+
+int		TF_CERT_ERROR_INDEX = TF_CERT_no_error;
+string	LOG_FILE_CERTMNGR   = "cert_mngr.log" ;
+string  DB_FILE_NAME        = "cert_mngr.db";
+
 
 GenCSR::GenCSR(QWidget *parent) :
     QDialog(parent),
@@ -11,7 +14,12 @@ GenCSR::GenCSR(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    openssl_init();
+
+
+    sqlite3 *db = openDatabase(DB_FILE_NAME, true);
+
+    sqlite3_close(db);
+
 
     ui->confirmPassword_label->setStyleSheet("QLabel {color : blue; }");
     MainWindow main_window;
@@ -100,6 +108,8 @@ void GenCSR::on_genCSRButton_clicked()
 
     keySize = ui->keySizesComboBox->currentText().toInt();
 
+    gen_CSR();
+
     //    qDebug()<< name;
     //    qDebug()<< org;
     //    qDebug()<< country;
@@ -107,23 +117,7 @@ void GenCSR::on_genCSRButton_clicked()
     //    qDebug()<< city;
     //    qDebug()<< keySize;
 
-    std::string prvtKey = cert->generatePvtKey(keySize);
-    std::cout << prvtKey <<std::endl;
-    cert->generateCSR(384);
-    std::cout << "\n\nCSR\n" << cert->getCertReq() << std::endl;
 
-    if(cert->getCertReq()==std::string())
-        std::cout << "CERTRequest true" <<std::endl;
-    else
-        std::cout << "CERTRequest false" <<std::endl;
-
-    this->hide();
-
-    QString CSR = QString::fromStdString(cert->getCertReq());
-
-
-    Dialog *CSRdisplay = new Dialog(this,CSR);
-    CSRdisplay->show();
 
 
     //    std::cout << "\n\nPUBLIC KEY FROM PRIVATE KEY\n" << cert->private2PublicKey();
@@ -206,4 +200,44 @@ void GenCSR::on_createPassword_Btn_clicked()
 void GenCSR::on_pushButton_2_clicked()
 {
     this->close();
+}
+
+void GenCSR::gen_CSR(){
+
+    int keySize;
+
+
+    keySize = ui->keySizesComboBox->currentText().toInt();
+
+
+    std::string prvtKey = cert->generatePvtKey(keySize);
+    std::cout << prvtKey <<std::endl;
+    std::string commonName= "name";
+    cert->generateCSR(commonName, 384);
+    cert->insertDBCert(DB_FILE_NAME);
+
+    if (TF_CERT_ERROR_INDEX) {
+        std::cout << "failed\n";
+    }
+    log_error();
+
+   std::cout << "CSR created\n";
+
+
+
+    //  std::cout << "\n\nCSR\n" << cert->getCertReq() << std::endl;
+
+    //    if(cert->getCertReq()==std::string())
+    //        std::cout << "CERTRequest true" <<std::endl;
+    //    else
+    //        std::cout << "CERTRequest false" <<std::endl;
+
+    this->hide();
+
+    QString CSR = QString::fromStdString(cert->getCertReq());
+
+
+    Dialog *CSRdisplay = new Dialog(this,CSR);
+    CSRdisplay->show();
+
 }

@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
+#include "TFCertificate.h"
 
 #include "mainwindow.h"
 
@@ -25,6 +26,7 @@ private slots:
 
 private:
     Ui::Import *ui;
+TFCertificate  *cert = new TFCertificate();
 };
 
 #endif // IMPORT_H

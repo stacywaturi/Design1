@@ -6,7 +6,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QMessageBox>
-#include "Certificate.h"
+#include "TFCertificate.h"
 #include "mainwindow.h"
 
 namespace Ui {
@@ -23,18 +23,19 @@ public:
 
     explicit GenCSR(QWidget *parent = nullptr);
 
-    Certificate *cert = new Certificate();
+    TFCertificate *cert = new TFCertificate();
 
 
     ~GenCSR();
 
 
+    void gen_CSR();
 private slots:
- //   void on_comboBox_clicked();
+    //   void on_comboBox_clicked();
 
     void on_genCSRButton_clicked();
 
-   void on_create_password_privatekey_radioButton_clicked();
+    void on_create_password_privatekey_radioButton_clicked();
 
     void on_createPassword_Btn_clicked();
 

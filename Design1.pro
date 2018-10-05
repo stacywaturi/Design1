@@ -28,10 +28,10 @@ SOURCES += \
     gencsr.cpp \
     import.cpp \
     export.cpp \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/Certificate.cpp \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/tf_cert_util.cpp \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.c \
-    dialog.cpp
+    dialog.cpp \
+    tf_cert_mngr/src/tf_cert_util.cpp \
+    tf_cert_mngr/src/TFCertificate.cpp \
+    tf_cert_mngr/src/sqlite3.c
 
 HEADERS += \
         mainwindow.h \
@@ -39,11 +39,11 @@ HEADERS += \
     gencsr.h \
     import.h \
     export.h \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/Certificate.h \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3.h \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/sqlite3ext.h \
-    tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/tf_cert_util.h \
-    dialog.h
+    dialog.h \
+    tf_cert_mngr/include/sqlite3.h \
+    tf_cert_mngr/include/sqlite3ext.h \
+    tf_cert_mngr/include/tf_cert_util.h \
+    tf_cert_mngr/include/TFCertificate.h
 
 
 FORMS += \
@@ -58,26 +58,28 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\tf_cert_mngr\tf_cert_mngr
+#INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr
+INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\include
+INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\src
+INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\openssl\include
 
-LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\tf_cert_mngr\tf_cert_mngr\openssl-1.1.0a-x86_32\lib\libcrypto.lib
-LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\tf_cert_mngr\tf_cert_mngr\openssl-1.1.0a-x86_32\lib\libssl.lib
+LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\openssl\lib\libcrypto.lib
+LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\openssl\lib\libssl.lib
 
 
 
 DISTFILES += \
-    countries.txt
+    countries.txt \
 
 
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/openssl/lib/ -llibcrypto
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/tf_cert_mngr/openssl/lib/ -llibcryptod
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibcrypto
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibcryptod
+INCLUDEPATH += $$PWD/tf_cert_mngr/openssl/include
+DEPENDPATH += $$PWD/tf_cert_mngr/openssl/include
 
-INCLUDEPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include
-DEPENDPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/openssl/lib/ -llibssl
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/tf_cert_mngr/openssl/lib/ -llibssld
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibssl
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/lib/ -llibssld
-
-INCLUDEPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include
-DEPENDPATH += $$PWD/tf_cert_mngr/tf_cert_mngr/tf_cert_mngr/openssl-1.1.0a-x86_32/include
+INCLUDEPATH += $$PWD/tf_cert_mngr/openssl/include
+DEPENDPATH += $$PWD/tf_cert_mngr/openssl/include
