@@ -3,9 +3,7 @@
 #include "dialog.h"
 
 
-int		TF_CERT_ERROR_INDEX = TF_CERT_no_error;
-string	LOG_FILE_CERTMNGR   = "cert_mngr.log" ;
-string  DB_FILE_NAME        = "cert_mngr.db";
+
 
 
 GenCSR::GenCSR(QWidget *parent) :
@@ -13,55 +11,22 @@ GenCSR::GenCSR(QWidget *parent) :
     ui(new Ui::GenCSR)
 {
     ui->setupUi(this);
-
-
-
-    sqlite3 *db = openDatabase(DB_FILE_NAME, true);
-
-    sqlite3_close(db);
-
-
     ui->confirmPassword_label->setStyleSheet("QLabel {color : blue; }");
-    MainWindow main_window;
-    if (!main_window.DBConnOpen())
-    {
-        ui->label->setText("Failed to open DB");
-    }
-    else
-        ui->label->setText("Connected to DB");
 
-    //addCountryItems();
+
+
+    //    sqlite3 *db = openDatabase(DB_FILE_NAME, true);
+
+    //    sqlite3_close(db);
+
+
+
+
+
     addKeySizesItems();
 
 }
-//void genCSR::on_comboBox_clicked()
 
-//void GenCSR::addCountryItems()
-//{
-
-//    qDebug() << "Adding Country Items" ;
-//    ui->countryComboBox->setMaxVisibleItems(8);
-//    //  ui->countryComboBox ->setEditable(true);
-
-//    QFile file("C:/Users/Stacy/Documents/qt/Design1/countries.txt");
-
-
-//    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-//    {
-//        QTextStream in(&file);
-//        QString line;
-
-//        while(!in.atEnd())
-//        {
-//            line = in.readLine();
-//            //            qDebug() << line ;
-//            ui->countryComboBox->addItem(line);
-//        }
-//        in.flush();
-
-//        file.close ();
-//    }
-//}
 
 void GenCSR::addKeySizesItems()
 {
@@ -100,64 +65,10 @@ void GenCSR::on_genCSRButton_clicked()
     QString name,org,country,province,city;
     int keySize;
 
-    //    name = ui->commonNameLineEdit->text();
-    //    org = ui->organizationLineEdit->text();
-    //    country = ui->countryComboBox->currentText();
-    //    province = ui->provinceLineEdit->text();
-    //    city = ui->cityLineEdit->text();
 
     keySize = ui->keySizesComboBox->currentText().toInt();
 
     gen_CSR();
-
-    //    qDebug()<< name;
-    //    qDebug()<< org;
-    //    qDebug()<< country;
-    //    qDebug()<< province;
-    //    qDebug()<< city;
-    //    qDebug()<< keySize;
-
-
-
-
-    //    std::cout << "\n\nPUBLIC KEY FROM PRIVATE KEY\n" << cert->private2PublicKey();
-    //    std::cout << "\n\nPUBLIC KEY FROM CERTIFICATE SIGNING REQUEST\n" << cert->CSR2PublicKey();
-    //    std::cout << "\n\nCERTIFICATE SIGNING REQUEST DETAILS:\n" << cert->displayCSR();
-
-
-    //GenCSR function
-
-    //if GenCSR successful then
-    //Message success
-    // this->close();
-    //QDialog displayCSR =  new QDial
-
-
-
-    if(!conn.DBConnOpen())
-    {
-        qDebug() << "Failed to open DB";
-        return;
-    }
-
-    conn.DBConnOpen();
-
-    //Write to Database
-    //        QSqlQuery qry;
-    //        qry.prepare("insert into genCSRTable (keySize) values('"+keySize+"')");
-    //             qry.prepare("insert into genCSRTable (name,org,country,province,city,keySize) "
-    //                         "values ('"+name+"','"+org+"','"+country+"','"+province+"','"+city+"','"+keySize+"' ) ");
-
-    //        if(qry.exec())
-    //        {
-    //            QMessageBox::critical(this,tr("Save"), tr("Saved"));
-    //            conn.DBConnClose();
-    //        }
-
-    //        else
-    //        {
-    //            QMessageBox::critical(this,tr("error::"), qry.lastError().text());
-    //        }
 
 }
 
@@ -205,15 +116,27 @@ void GenCSR::on_pushButton_2_clicked()
 void GenCSR::gen_CSR(){
 
     int keySize;
+    std::string commonName,password = "";
 
-
+    //get keysize and common name
     keySize = ui->keySizesComboBox->currentText().toInt();
+    commonName = ui->commonName_lineEdit->text().toStdString();
+
+    password = ui->password_private_key->text().toStdString();
 
 
-    std::string prvtKey = cert->generatePvtKey(keySize);
-    std::cout << prvtKey <<std::endl;
-    std::string commonName= "name";
-    cert->generateCSR(commonName, 384);
+
+    TFCertificate *cert = new TFCertificate();
+
+    if(password.empty() || password.length()<3)
+        std::string prvtKey = cert->generatePvtKey(keySize);
+    else
+        std::string prvtKey = cert->generatePvtKey(keySize, password);
+
+
+
+    cert->generateCSR(commonName);
+    TFCertificate::TFID++;
     cert->insertDBCert(DB_FILE_NAME);
 
     if (TF_CERT_ERROR_INDEX) {
@@ -221,11 +144,11 @@ void GenCSR::gen_CSR(){
     }
     log_error();
 
-   std::cout << "CSR created\n";
 
 
 
-    //  std::cout << "\n\nCSR\n" << cert->getCertReq() << std::endl;
+
+    std::cout << "\n\nCSR\n" << cert->getCertReq() << std::endl;
 
     //    if(cert->getCertReq()==std::string())
     //        std::cout << "CERTRequest true" <<std::endl;

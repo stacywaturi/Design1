@@ -38,7 +38,7 @@
      <string>Browse..</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="import_lineEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -48,6 +48,35 @@
      </rect>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="cancelImprt_Btn">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>200</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="okImport_Btn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>200</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
   </widget>
  </widget>
  <resources/>

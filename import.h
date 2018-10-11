@@ -24,6 +24,10 @@ public:
 private slots:
     void on_browseImport_Button_clicked();
 
+    void on_okImport_Btn_clicked();
+
+    void on_cancelImprt_Btn_clicked();
+
 private:
     Ui::Import *ui;
 TFCertificate  *cert = new TFCertificate();

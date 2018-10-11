@@ -31,7 +31,8 @@ SOURCES += \
     dialog.cpp \
     tf_cert_mngr/src/tf_cert_util.cpp \
     tf_cert_mngr/src/TFCertificate.cpp \
-    tf_cert_mngr/src/sqlite3.c
+    tf_cert_mngr/src/sqlite3.c \
+    view.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     tf_cert_mngr/include/sqlite3.h \
     tf_cert_mngr/include/sqlite3ext.h \
     tf_cert_mngr/include/tf_cert_util.h \
-    tf_cert_mngr/include/TFCertificate.h
+    tf_cert_mngr/include/TFCertificate.h \
+    view.h
 
 
 FORMS += \
