@@ -11,18 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    //   DBConnOpen();
-
-
-
-    //    if (!DBConnOpen())
-    //    {
-    //        ui->label2->setText("Failed to open DB");
-    //    }
-    //    else
-    //        ui->label2->setText("Connected to DB");
-
     createCertTable();
     getCertInfo();
     listCerts();
