@@ -21,9 +21,7 @@ public:
 
 private slots:
     void on_copyCSR_Btn_3_clicked();
-
     void on_closeCSR_Btn_3_clicked();
-
     void on_saveCSR_Btn_3_clicked();
 
 private:

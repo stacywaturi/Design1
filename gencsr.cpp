@@ -32,8 +32,7 @@ void GenCSR::addKeySizesItems()
 {
     qDebug() << "Adding Key Sizes Items" ;
     ui->keySizesComboBox->setMaxVisibleItems(3);
-    //  ui->keySizesComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-    //  ui->countryComboBox ->setEditable(true);
+
 
     QFile file("C:/Users/Stacy/Documents/qt/Design1/keysizes.txt");
 
@@ -127,33 +126,23 @@ void GenCSR::gen_CSR(){
 
 
     TFCertificate *cert = new TFCertificate();
-
-    if(password.empty() || password.length()<3)
-        std::string prvtKey = cert->generatePvtKey(keySize);
-    else
-        std::string prvtKey = cert->generatePvtKey(keySize, password);
-
-
-
-    cert->generateCSR(commonName);
-    TFCertificate::TFID++;
-    cert->insertDBCert(DB_FILE_NAME);
-
-    if (TF_CERT_ERROR_INDEX) {
-        std::cout << "failed\n";
+    if (commonName.empty()){
+        QMessageBox::information(this,tr(""), "Please enter a common name");
     }
-    log_error();
 
 
+    else{
+        std::string prvtKey = cert->generatePvtKey(keySize, password);
+        cert->generateCSR(commonName);
+        cert->insertDBCert(DB_FILE_NAME);
+
+        if (TF_CERT_ERROR_INDEX) {
+            std::cout << "failed\n";
+        }
+        log_error();
 
 
-
-    std::cout << "\n\nCSR\n" << cert->getCertReq() << std::endl;
-
-    //    if(cert->getCertReq()==std::string())
-    //        std::cout << "CERTRequest true" <<std::endl;
-    //    else
-    //        std::cout << "CERTRequest false" <<std::endl;
+    }
 
     this->hide();
 

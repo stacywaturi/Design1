@@ -37,7 +37,7 @@ void View::writeToFile(){
     }
 
 
-    QDesktopServices::openUrl(QUrl("temp.crt"));
+    QDesktopServices::openUrl(QUrl("temp.crt", QUrl::TolerantMode));
 
 
 }

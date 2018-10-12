@@ -24,14 +24,13 @@ public:
 
     ~Export();
 
+    bool foundCertificate();
 private slots:
     void on_export_Button_clicked();
-
     void on_create_password_exportCert_radioButton_clicked();
-
     void on_createPassword_Btn_3_clicked();
-
     void on_browseExport_Button_clicked();
+    void on_pushButton_2_clicked();
 
 private:
     Ui::Export *ui;

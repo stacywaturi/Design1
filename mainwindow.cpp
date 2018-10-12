@@ -11,6 +11,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+
+
     createCertTable();
     getCertInfo();
     listCerts();
@@ -70,7 +74,7 @@ void MainWindow::on_genCSRBtn_clicked()
     ui->viewCertBtn->setEnabled(false);
     ui->exportBtn->setEnabled(false);
 
- //   DBConnClose();
+    //   DBConnClose();
     GenCSR *genCSRObj;
 
     genCSRObj = new GenCSR(this);
@@ -97,27 +101,27 @@ void MainWindow::getCertInfo()
     if(query->next())
         rows = query->value(0).toInt();
 
-    qDebug() << "ROWS" << rows;
+    //  qDebug() << "ROWS" << rows;
 
-   for (int i = 1; i<rows+1;i++){
+    for (int i = 1; i<rows+1;i++){
         TFCertificate *cert = new TFCertificate();
         if(cert->lookupDBCert(DB_FILE_NAME, DB_COL_ID, std::to_string(i))){
 
             string ccert = cert->getCert();
-//            if(ccert.empty() || ccert.length() < 5)
-//                continue;
+            //            if(ccert.empty() || ccert.length() < 5)
+            //                continue;
 
-            std::cout << cert->getCert()<<std::endl;
+            //  std::cout << cert->getCert()<<std::endl;
 
 
 
             //   currentCert = cert->getCert();
-//            std::cout<<"CERTIFICATE INFO\n"
-//                    <<"==================\n"
-//                   <<"SUBJECT NAME:"<<cert->getInfo(INFO_SUBJECT_NAME)	<<endl
-//                  <<"VALID TO:   "<<cert->getInfo(INFO_VALIDTO)	<<endl
-//                 <<"SERIAL:     "<<cert->getInfo(INFO_SERIAL)	<<endl
-//                <<"ISSUER NAME:"<<cert->getInfo(INFO_ISSUER_NAME)	<<endl;
+            //            std::cout<<"CERTIFICATE INFO\n"
+            //                    <<"==================\n"
+            //                   <<"SUBJECT NAME:"<<cert->getInfo(INFO_SUBJECT_NAME)	<<endl
+            //                  <<"VALID TO:   "<<cert->getInfo(INFO_VALIDTO)	<<endl
+            //                 <<"SERIAL:     "<<cert->getInfo(INFO_SERIAL)	<<endl
+            //                <<"ISSUER NAME:"<<cert->getInfo(INFO_ISSUER_NAME)	<<endl;
 
 
 
@@ -156,9 +160,9 @@ void MainWindow::getCertInfo()
 
 
         }
-   }
+    }
 
-        DBConnClose();
+    DBConnClose();
 }
 
 
@@ -242,9 +246,12 @@ void MainWindow::on_importBtn_clicked()
 void MainWindow::on_exportBtn_clicked()
 {
     DBConnClose();
+
     Export *exportObj = new Export(this,intIndx);
-    exportObj->setModal(true);
-    exportObj->exec();
+    if (exportObj->foundCertificate()){
+        exportObj->setModal(true);
+        exportObj->exec();
+    }
 }
 
 void MainWindow::on_viewCertBtn_clicked()

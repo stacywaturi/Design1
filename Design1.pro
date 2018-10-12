@@ -85,3 +85,5 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/openssl/lib/ 
 
 INCLUDEPATH += $$PWD/tf_cert_mngr/openssl/include
 DEPENDPATH += $$PWD/tf_cert_mngr/openssl/include
+
+win32:RC_FILE += icon.rc

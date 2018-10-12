@@ -30,7 +30,7 @@ private slots:
 
 private:
     Ui::Import *ui;
-TFCertificate  *cert = new TFCertificate();
+    TFCertificate  *cert = new TFCertificate();
 };
 
 #endif // IMPORT_H

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Trust Factory Certificate Utility</string>
   </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Generate Private Key</string>
+    <string>Generate Certificate Request</string>
    </property>
    <widget class="QWidget" name="horizontalLayoutWidget_6">
     <property name="geometry">
@@ -60,7 +60,7 @@
      <item>
       <widget class="QLabel" name="commonName_label">
        <property name="text">
-        <string>Name                               </string>
+        <string>Common Name                 </string>
        </property>
       </widget>
      </item>

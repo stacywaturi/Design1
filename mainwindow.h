@@ -11,7 +11,7 @@
 #include <math.h>
 #include "TFCertificate.h"
 
-#include "gencsrwindow.h"
+
 
 
 
@@ -44,16 +44,13 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QSqlQueryModel *modal = new QSqlQueryModel();
- //   TFCertificate *cert = new TFCertificate();
+    //   TFCertificate *cert = new TFCertificate();
     int intIndx =0;
     std::string DB_TABLE2_NAME = "CertificateInfoTable";
     std::string DB_TABLE2_COL_ISSUER = "Issuer";
     std::string DB_TABLE2_COL_EXPIRE = "Expiry_Date";
     std::string DB_TABLE2_COL_SERIAL = "Serial_Number";
     std::string DB_TABLE2_COL_NAME = "Common_Name";
-
-
-
 
     void listCerts();
     void getCertInfo();

@@ -5,11 +5,28 @@ Export::Export(QWidget *parent, int num) :
     QDialog(parent),
     ui(new Ui::Export)
 {
-
-    ui->setupUi(this);
     _num = num;
 
+
+    ui->setupUi(this);
+
     qDebug() << "SELECTED ROW " <<_num;
+}
+
+bool Export::foundCertificate(){
+
+    TFCertificate *cert = new TFCertificate();
+    if(cert->lookupDBCert(DB_FILE_NAME, DB_COL_ID, std::to_string(_num))){
+        if(QString::fromStdString(cert->getCert()).isEmpty()){
+            QMessageBox::information(this,tr("Certificate"), "Could not find Certificate");
+            return false;
+
+        }
+    }
+
+    else
+        return true;
+
 }
 
 Export::~Export()
@@ -104,4 +121,9 @@ void Export::on_browseExport_Button_clicked()
 
     ui->export_lineEdit->setText(filename);
 
+}
+
+void Export::on_pushButton_2_clicked()
+{
+    this->close();
 }

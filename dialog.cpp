@@ -20,8 +20,7 @@ Dialog::~Dialog()
 
 void Dialog::on_copyCSR_Btn_3_clicked()
 {
-    //  ui->displayCSR->copyAvailable(true);
-    //  ui->displayCSR->
+
     ui->displayCSR->selectAll();
     ui->displayCSR->copy();
     QMessageBox::information(this,tr("CSR"), "CSR Copied Successfully");
@@ -38,7 +37,7 @@ void Dialog::on_saveCSR_Btn_3_clicked()
     QString filename = QFileDialog::getSaveFileName(this,
                                                     tr("Save CSR"), "C://",
                                                     tr("Privacy Enhanced Mail(*.pem);;"
-                                                        "Text File (*.txt);;"));
+                                                       "Text File (*.txt);;"));
     QFile file ( filename);
 
     if (file.open(QIODevice::ReadWrite)){

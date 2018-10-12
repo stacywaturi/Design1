@@ -18,7 +18,7 @@ public:
 private:
     void readSelected(int &num);
     void writeToFile();
-     TFCertificate *cert = new TFCertificate();
+    TFCertificate *cert = new TFCertificate();
 };
 
 #endif // VIEW_H
