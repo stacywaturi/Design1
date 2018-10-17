@@ -12,12 +12,23 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QPixmap pix("C:/Users/Stacy/Documents/qt/Design1/tfimage.PNG");
+    ui->logo_label->setPixmap(pix);
+    ui->logo_label->setScaledContents( true );
+
+    ui->logo_label->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+
     ui->tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+
 
 
     createCertTable();
     getCertInfo();
     listCerts();
+
+    ui->tableView->resizeColumnsToContents();
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+//     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 
 
@@ -41,6 +52,7 @@ void MainWindow::createCertTable(){
 
     qry->exec();
     DBConnClose();
+
 }
 
 
@@ -71,7 +83,8 @@ bool MainWindow::DBConnOpen()
 }
 void MainWindow::on_genCSRBtn_clicked()
 {
-    ui->viewCertBtn->setEnabled(false);
+    DBConnOpen();
+
     ui->exportBtn->setEnabled(false);
 
     //   DBConnClose();
@@ -80,6 +93,7 @@ void MainWindow::on_genCSRBtn_clicked()
     genCSRObj = new GenCSR(this);
     genCSRObj->setModal(true);
     genCSRObj->exec();
+    DBConnClose();
 
 }
 
@@ -89,7 +103,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/* HERE */
+
 void MainWindow::getCertInfo()
 {
     std::string currentCert = "";
@@ -145,7 +159,13 @@ void MainWindow::getCertInfo()
                            ", :" + QString::fromStdString(DB_TABLE2_COL_ISSUER)+")");
 
             query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_NAME),  QString::fromStdString(cert->getInfo(INFO_SUBJECT_NAME)));
-            query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_EXPIRE), QString::fromStdString (cert->getInfo(INFO_VALIDTO)));
+
+            if( QString::fromStdString (cert->getInfo(INFO_VALIDTO)).isEmpty())
+                 query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_EXPIRE), "Pending Certificate..");
+             else
+                query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_EXPIRE), QString::fromStdString (cert->getInfo(INFO_VALIDTO)));
+
+
             query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_SERIAL), QString::fromStdString(cert->getInfo(INFO_SERIAL)));
             query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_ISSUER),  QString::fromStdString(cert->getInfo(INFO_ISSUER_NAME)));
 
@@ -156,7 +176,6 @@ void MainWindow::getCertInfo()
             //                           " WHERE " +  QString::fromStdString(DB_COL_CERT) + " IS NOT NULL");
 
             query->exec();
-            //  qDebug() << "queryyyy>??  :"<<query;
 
 
         }
@@ -169,11 +188,13 @@ void MainWindow::getCertInfo()
 
 void MainWindow::on_refreshBtn_clicked()
 {
-    ui->viewCertBtn->setEnabled(false);
+    DBConnOpen();
+
     ui->exportBtn->setEnabled(false);
     createCertTable();
     getCertInfo();
     listCerts();
+    DBConnClose();
 
 
 }
@@ -189,7 +210,7 @@ void MainWindow::listCerts()
     qry->exec();
     modal->setQuery(*qry);
 
-    DBConnClose();
+
     ui->tableView->setModel(modal);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -208,7 +229,7 @@ void MainWindow::listCerts()
 
 void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelection &)
 {
-    ui->viewCertBtn->setEnabled(true);
+
     ui->exportBtn->setEnabled(true);
     //QModelIndexList selection = ui->tableView->selectionModel()->selectedRows();//Here you are getting the indexes of the selected rows
     QModelIndexList indexes = ui->tableView->selectionModel()->selectedIndexes();
@@ -225,6 +246,8 @@ void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelectio
 
     //qDebug() << text;
     qDebug() << intIndx;
+
+
     //QMessageBox::information(this,tr(""), (selection));
     //Now you can create your code using this information
 
@@ -233,7 +256,8 @@ void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelectio
 
 void MainWindow::on_importBtn_clicked()
 {
-    ui->viewCertBtn->setEnabled(false);
+    DBConnOpen();
+
     ui->exportBtn->setEnabled(false);
 
     //  DBConnClose();
@@ -241,25 +265,39 @@ void MainWindow::on_importBtn_clicked()
     importObj->setModal(true);
     importObj->exec();
 
+    DBConnClose();
 }
 
 void MainWindow::on_exportBtn_clicked()
 {
-    DBConnClose();
+    DBConnOpen();
 
     Export *exportObj = new Export(this,intIndx);
     if (exportObj->foundCertificate()){
         exportObj->setModal(true);
         exportObj->exec();
     }
+    DBConnClose();
 }
 
-void MainWindow::on_viewCertBtn_clicked()
+//void MainWindow::on_viewCertBtn_clicked()
+//{
+//    DBConnOpen();
+//    View *viewObj = new View(this,intIndx);
+//    viewObj->setModal(true);
+//    //viewObj->exec();
+//    DBConnClose();
+
+//}
+
+void MainWindow::on_tableView_doubleClicked(const QModelIndex &intIndx)
 {
-    DBConnClose();
-    View *viewObj = new View(this,intIndx);
+    DBConnOpen();
+
+    View *viewObj = new View(this,(intIndx.row() +1));
     viewObj->setModal(true);
     //viewObj->exec();
+    DBConnClose();
 
-
+    qDebug() << "Viewing " << intIndx;
 }

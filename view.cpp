@@ -1,4 +1,5 @@
 #include "view.h"
+#include "dialog.h"
 
 View::View(QWidget *parent, int num):QDialog(parent)
 {
@@ -15,7 +16,11 @@ void View::readSelected(int &num){
     //    std::cout <<"Exporting" << cert->lookupDBCert(DB_FILE_NAME, id, idValue) <<std::endl;
     if( cert->lookupDBCert(DB_FILE_NAME, id, idValue)){
         if(QString::fromStdString(cert->getCert()).isEmpty()){
-            QMessageBox::information(this,tr("Certificate"), "Could not find Certificate");
+            QMessageBox::information(this,tr("Certificate"), "Certificate not available, \nPress OK to View/Save CSR");
+
+            QString CSR = QString::fromStdString(cert->getCertReq());
+            Dialog *CSRdisplay = new Dialog(this,CSR);
+            CSRdisplay->show();
         }
 
         else
@@ -41,3 +46,4 @@ void View::writeToFile(){
 
 
 }
+

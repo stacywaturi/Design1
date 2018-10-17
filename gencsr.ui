@@ -18,9 +18,16 @@
     <rect>
      <x>30</x>
      <y>30</y>
-     <width>281</width>
-     <height>101</height>
+     <width>451</width>
+     <height>121</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+     <underline>false</underline>
+    </font>
    </property>
    <property name="title">
     <string>Generate Certificate Request</string>
@@ -29,21 +36,34 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
-      <width>251</width>
+      <y>60</y>
+      <width>311</width>
       <height>31</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <widget class="QLabel" name="label_6">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>Key Size</string>
+        <string>Key Size                                                   </string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="keySizesComboBox"/>
+      <widget class="QComboBox" name="keySizesComboBox">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -52,15 +72,21 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>251</width>
+      <width>311</width>
       <height>31</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
       <widget class="QLabel" name="commonName_label">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>Common Name                 </string>
+        <string>Common Name                     </string>
        </property>
       </widget>
      </item>
@@ -76,19 +102,25 @@
      </item>
     </layout>
    </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>340</x>
-     <y>30</y>
-     <width>161</width>
-     <height>281</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Information</string>
-   </property>
+   <widget class="QLabel" name="commonName_label_2">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>20</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QPushButton" name="genCSRButton">
    <property name="geometry">
@@ -126,30 +158,36 @@
     </rect>
    </property>
    <property name="text">
-    <string>Status</string>
+    <string/>
    </property>
   </widget>
   <widget class="QGroupBox" name="hBoxCreatePassword">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>30</x>
      <y>170</y>
-     <width>281</width>
+     <width>451</width>
      <height>141</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="title">
-    <string/>
+    <string>Create Password (Optional)</string>
    </property>
    <widget class="QLineEdit" name="password_private_key">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>10</y>
-      <width>113</width>
+      <x>160</x>
+      <y>30</y>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
@@ -160,9 +198,9 @@
    <widget class="QLineEdit" name="confirm_password_private_key">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>40</y>
-      <width>113</width>
+      <x>160</x>
+      <y>80</y>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
@@ -171,13 +209,22 @@
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>30</y>
       <width>47</width>
       <height>13</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="text">
      <string>Password</string>
@@ -186,11 +233,17 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
+      <x>20</x>
+      <y>80</y>
       <width>91</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="text">
      <string>Confirm Password</string>
@@ -199,42 +252,41 @@
    <widget class="QLabel" name="confirmPassword_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>80</y>
-      <width>211</width>
+      <x>20</x>
+      <y>110</y>
+      <width>301</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="createPassword_Btn">
+   <widget class="QLabel" name="password_label">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>110</y>
-      <width>75</width>
-      <height>23</height>
+      <x>20</x>
+      <y>50</y>
+      <width>301</width>
+      <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>Create</string>
+     <string/>
     </property>
    </widget>
-  </widget>
-  <widget class="QRadioButton" name="create_password_privatekey_radioButton">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>150</y>
-     <width>201</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Create Password</string>
-   </property>
   </widget>
  </widget>
  <resources/>

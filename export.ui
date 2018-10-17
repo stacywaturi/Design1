@@ -23,56 +23,12 @@
     </rect>
    </property>
    <property name="text">
-    <string>Status</string>
+    <string/>
    </property>
-  </widget>
-  <widget class="QRadioButton" name="create_password_exportCert_radioButton">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>110</y>
-     <width>201</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Create Password</string>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>0</y>
-     <width>171</width>
-     <height>281</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Information</string>
-   </property>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>161</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>8</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the file name that you want &lt;/p&gt;&lt;p&gt;to save the exported certificate &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QPushButton" name="export_Button">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -88,25 +44,25 @@
   </widget>
   <widget class="QGroupBox" name="hBoxCreatePasswordExport">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>140</y>
-     <width>281</width>
-     <height>141</height>
+     <y>170</y>
+     <width>401</width>
+     <height>131</height>
     </rect>
    </property>
    <property name="title">
-    <string/>
+    <string>Create Password</string>
    </property>
-   <widget class="QLineEdit" name="password_export_3">
+   <widget class="QLineEdit" name="password_export_LineEdit">
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>10</y>
-      <width>113</width>
+      <y>30</y>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
@@ -114,12 +70,12 @@
      <enum>QLineEdit::Password</enum>
     </property>
    </widget>
-   <widget class="QLineEdit" name="confirm_password_export_3">
+   <widget class="QLineEdit" name="confirm_password_export_lineEdit">
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>40</y>
-      <width>113</width>
+      <y>80</y>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
@@ -131,7 +87,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>30</y>
       <width>47</width>
       <height>13</height>
      </rect>
@@ -143,8 +99,8 @@
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
+      <x>20</x>
+      <y>80</y>
       <width>91</width>
       <height>16</height>
      </rect>
@@ -153,11 +109,11 @@
      <string>Confirm Password</string>
     </property>
    </widget>
-   <widget class="QLabel" name="confirmPassword_label_3">
+   <widget class="QLabel" name="confirmPassword_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>80</y>
+      <x>20</x>
+      <y>100</y>
       <width>211</width>
       <height>20</height>
      </rect>
@@ -166,17 +122,17 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="createPassword_Btn_3">
+   <widget class="QLabel" name="password_label">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>110</y>
-      <width>75</width>
-      <height>23</height>
+      <x>20</x>
+      <y>50</y>
+      <width>211</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Create</string>
+     <string/>
     </property>
    </widget>
   </widget>
@@ -198,8 +154,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>301</width>
-     <height>91</height>
+     <width>401</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="title">
@@ -208,24 +164,102 @@
    <widget class="QPushButton" name="browseExport_Button">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>40</y>
-      <width>75</width>
+      <x>300</x>
+      <y>120</y>
+      <width>91</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>Browse..</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="export_lineEdit">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>191</width>
+      <x>40</x>
+      <y>120</y>
+      <width>241</width>
       <height>21</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>261</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter a file name to save the exported certificated</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>100</y>
+      <width>261</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Filename:</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="pfx_radioButton">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>40</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>pfx file</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="text_radioButton">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>40</y>
+      <width>111</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>text file (default)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>261</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save exported certificate as</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="exportFieldRequired_label_2">
+    <property name="geometry">
+     <rect>
+      <x>296</x>
+      <y>90</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

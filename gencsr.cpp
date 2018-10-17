@@ -3,25 +3,15 @@
 #include "dialog.h"
 
 
-
-
-
 GenCSR::GenCSR(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::GenCSR)
 {
     ui->setupUi(this);
-    ui->confirmPassword_label->setStyleSheet("QLabel {color : blue; }");
-
-
-
-    //    sqlite3 *db = openDatabase(DB_FILE_NAME, true);
-
-    //    sqlite3_close(db);
-
-
-
-
+    ui->label->setStyleSheet("QLabel {color : blue; }");
+    ui->commonName_label_2->setStyleSheet("QLabel {color : red; }");
+    ui->confirmPassword_label->setStyleSheet("QLabel {color : red; }");
+    ui->password_label->setStyleSheet("QLabel {color : red; }");
 
     addKeySizesItems();
 
@@ -30,7 +20,7 @@ GenCSR::GenCSR(QWidget *parent) :
 
 void GenCSR::addKeySizesItems()
 {
-    qDebug() << "Adding Key Sizes Items" ;
+    // qDebug() << "Adding Key Sizes Items" ;
     ui->keySizesComboBox->setMaxVisibleItems(3);
 
 
@@ -48,6 +38,7 @@ void GenCSR::addKeySizesItems()
             //qDebug() << line ;
             ui->keySizesComboBox->addItem(line);
         }
+
         in.flush();
 
         file.close ();
@@ -59,15 +50,19 @@ void GenCSR::addKeySizesItems()
 
 void GenCSR::on_genCSRButton_clicked()
 {
-    ui->label->setText("Generating CSR ...");
-    MainWindow conn;
-    QString name,org,country,province,city;
-    int keySize;
+
+    if  ( createPassword()){
 
 
-    keySize = ui->keySizesComboBox->currentText().toInt();
+        MainWindow conn;
+        QString name,org,country,province,city;
+        int keySize;
 
-    gen_CSR();
+
+        keySize = ui->keySizesComboBox->currentText().toInt();
+
+        gen_CSR();
+    }
 
 }
 
@@ -77,33 +72,50 @@ GenCSR::~GenCSR()
 }
 
 
-void GenCSR::on_create_password_privatekey_radioButton_clicked()
+
+
+
+bool GenCSR::createPassword()
 {
-    ui->hBoxCreatePassword->setEnabled(true);
+    ui->password_label->clear();
+    ui->confirmPassword_label->clear();
 
-    ui->genCSRButton->setEnabled(false);
-
-
-}
-
-void GenCSR::on_createPassword_Btn_clicked()
-{
     if(!ui->password_private_key->text().isEmpty()){
-        if(!ui->password_private_key->text().isEmpty() && !ui->confirm_password_private_key->text().isEmpty()) {
-            if (!ui->password_private_key->text().compare(ui->confirm_password_private_key->text())) {
-                ui->confirmPassword_label->setText("Password confirmation OK");
-                ui->genCSRButton->setEnabled(true);
 
-            } else {
-                ui->confirmPassword_label->setText("Passwords do not match, please try again");
+        if(!ui->password_private_key->text().isEmpty() && !ui->confirm_password_private_key->text().isEmpty()) {
+
+            if (!ui->password_private_key->text().compare(ui->confirm_password_private_key->text())) {
+
+                ui->confirmPassword_label->setText("Password confirmation OK");
+                return true;
 
             }
-        } else {
-            ui->confirmPassword_label->setText("Please fill 'Confirm Password' field");
+            else {
+                ui->confirmPassword_label->setText("Passwords did not match, please try again");
+                ui->confirm_password_private_key->clear();
+                ui->password_private_key->clear();
+                return false;
+
+            }
+        }
+        else {
+            ui->confirmPassword_label->setText("Confirm your password");
+            return false;
 
         }
-    } else {
-        ui->confirmPassword_label->setText("Please fill password field");
+
+    }
+
+    else if (ui->password_private_key->text().isEmpty() && !ui->confirm_password_private_key->text().isEmpty()) {
+        ui->password_label->setText("Please enter a password first");
+        ui->confirm_password_private_key->clear();
+        return false;
+    }
+
+    else {
+        ui->confirmPassword_label->setText("No Password Provided");
+        return true;
+
     }
 }
 
@@ -113,6 +125,7 @@ void GenCSR::on_pushButton_2_clicked()
 }
 
 void GenCSR::gen_CSR(){
+
 
     int keySize;
     std::string commonName,password = "";
@@ -127,11 +140,14 @@ void GenCSR::gen_CSR(){
 
     TFCertificate *cert = new TFCertificate();
     if (commonName.empty()){
-        QMessageBox::information(this,tr(""), "Please enter a common name");
+        ui->commonName_label_2->setText("* Field Required");
+       // QMessageBox::information(this,tr(""), "Please enter a common name");
+        // this->close();
     }
 
 
     else{
+        ui->label->setText("Generating CSR ...");
         std::string prvtKey = cert->generatePvtKey(keySize, password);
         cert->generateCSR(commonName);
         cert->insertDBCert(DB_FILE_NAME);
@@ -142,14 +158,15 @@ void GenCSR::gen_CSR(){
         log_error();
 
 
+        this->hide();
+
+        QString CSR = QString::fromStdString(cert->getCertReq());
+
+
+        Dialog *CSRdisplay = new Dialog(this,CSR);
+        CSRdisplay->show();
     }
 
-    this->hide();
 
-    QString CSR = QString::fromStdString(cert->getCertReq());
-
-
-    Dialog *CSRdisplay = new Dialog(this,CSR);
-    CSRdisplay->show();
 
 }

@@ -49,27 +49,28 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>110</x>
      <y>10</y>
      <width>311</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Certificate Request has been successfully created</string>
+    <string>               Certificate Signing Request (CSR)</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="displayCSR">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>40</y>
-     <width>471</width>
+     <width>491</width>
      <height>251</height>
     </rect>
    </property>
    <property name="font">
     <font>
+     <family>Consolas</family>
      <pointsize>9</pointsize>
     </font>
    </property>

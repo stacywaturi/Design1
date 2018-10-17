@@ -1,3 +1,15 @@
+/**
+*
+* File        : dialog.h
+* Date Created: Oct 10 2018
+* Author      : Stacy Wambugu
+*
+* Copyright (c) 2018 iSolv Technologies
+* --------------------------------------
+* Description:  Certificates' base class
+*
+*/
+
 #ifndef DIALOG_H
 #define DIALOG_H
 

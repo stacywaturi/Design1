@@ -39,7 +39,9 @@ private slots:
     void on_exportBtn_clicked();
 
     void slotSelectionChange(const QItemSelection &, const QItemSelection &);
-    void on_viewCertBtn_clicked();
+
+
+    void on_tableView_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

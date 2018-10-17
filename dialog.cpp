@@ -8,6 +8,7 @@ Dialog::Dialog(QWidget *parent, QString CSR) :
 {
     _CSR = CSR;
     ui->setupUi(this);
+    ui->displayCSR->setAlignment(Qt::AlignHCenter);
     ui->displayCSR->setText(_CSR);
 
 
@@ -38,6 +39,7 @@ void Dialog::on_saveCSR_Btn_3_clicked()
                                                     tr("Save CSR"), "C://",
                                                     tr("Privacy Enhanced Mail(*.pem);;"
                                                        "Text File (*.txt);;"));
+
     QFile file ( filename);
 
     if (file.open(QIODevice::ReadWrite)){
