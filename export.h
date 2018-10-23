@@ -10,6 +10,9 @@
 #include <TFCertificate.h>
 #include <QtDebug>
 #include <QMessageBox>
+#include <QAction>
+#include <QLineEdit>
+#include <QToolButton>
 
 namespace Ui {
 class Export;
@@ -20,7 +23,7 @@ class Export : public QDialog
     Q_OBJECT
 
 public:
-    explicit Export(QWidget *parent = nullptr, int num= 0);
+    explicit Export(QWidget *parent = nullptr, int num= 1);
 
     ~Export();
 
@@ -45,7 +48,12 @@ private:
     TFCertificate *cert = new TFCertificate();
     QString filename;
     int _num;
+    QToolButton *button;
+     QToolButton *button2;
 
+     void showPassword();
+     void onPressed();
+     void onReleased();
 };
 
 #endif // EXPORT_H

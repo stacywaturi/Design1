@@ -56,11 +56,12 @@ void Import::on_browseImport_Button_clicked()
 
         break;
     case 0:
-            QMessageBox::information(this,tr("Certificate"), "No matching CSR/Private key found!");
+        QMessageBox::information(this,tr("Certificate"), "No matching CSR/Private key found!");
 
         break;
     case 1:
         if(cert->updateDBCert(DB_FILE_NAME)){
+
             QMessageBox::information(this,tr("Certificate"),"Certificate found and updated");
 
             ui->okImport_Btn->setEnabled(true);

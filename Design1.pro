@@ -32,7 +32,8 @@ SOURCES += \
     tf_cert_mngr/src/tf_cert_util.cpp \
     tf_cert_mngr/src/TFCertificate.cpp \
     tf_cert_mngr/src/sqlite3.c \
-    view.cpp
+    view.cpp \
+    password.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     tf_cert_mngr/include/sqlite3ext.h \
     tf_cert_mngr/include/tf_cert_util.h \
     tf_cert_mngr/include/TFCertificate.h \
-    view.h
+    view.h \
+    password.h
 
 
 FORMS += \
@@ -53,7 +55,8 @@ FORMS += \
     gencsr.ui \
     import.ui \
     export.ui \
-    dialog.ui
+    dialog.ui \
+    password.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -61,17 +64,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 #INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr
-INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\include
-INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\src
-INCLUDEPATH += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\openssl\include
+INCLUDEPATH += $$PWD/tf_cert_mngr/include
+INCLUDEPATH += $$PWD/tf_cert_mngr/src
+INCLUDEPATH += $$PWD/tf_cert_mngr/openssl/include
 
-LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\openssl\lib\libcrypto.lib
-LIBS += C:\Users\Stacy\Documents\qt\Design1\tf_cert_mngr\openssl\lib\libssl.lib
 
+LIBS += $$PWD/tf_cert_mngr/openssl/lib/libcrypto.lib
+LIBS += $$PWD/tf_cert_mngr/openssl/lib/libssl.lib
 
 
 DISTFILES += \
     countries.txt \
+    tfimage.PNG
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tf_cert_mngr/openssl/lib/ -llibcrypto
@@ -87,3 +91,6 @@ INCLUDEPATH += $$PWD/tf_cert_mngr/openssl/include
 DEPENDPATH += $$PWD/tf_cert_mngr/openssl/include
 
 win32:RC_FILE += icon.rc
+
+
+RESOURCES += resource.qrc

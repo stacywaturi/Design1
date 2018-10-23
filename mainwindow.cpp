@@ -4,6 +4,7 @@
 #include "import.h"
 #include "export.h"
 #include "view.h"
+#include "password.h"
 #include "TFCertificate.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,11 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPixmap pix("C:/Users/Stacy/Documents/qt/Design1/tfimage.PNG");
+    QPixmap pix(":/tfimage");
     ui->logo_label->setPixmap(pix);
     ui->logo_label->setScaledContents( true );
 
-    ui->logo_label->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+    ui->logo_label->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored);
 
     ui->tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
 
@@ -26,12 +27,11 @@ MainWindow::MainWindow(QWidget *parent) :
     getCertInfo();
     listCerts();
 
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->resizeColumnsToContents();
-    ui->tableView->horizontalHeader()->setStretchLastSection(true);
-//     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-
-
+    //  ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    //  ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 void MainWindow::createCertTable(){
@@ -46,10 +46,6 @@ void MainWindow::createCertTable(){
                  QString::fromStdString(DB_TABLE2_COL_EXPIRE)  + " varchar(20), "  +
                  QString::fromStdString(DB_TABLE2_COL_SERIAL)  + " varchar(20), "  +
                  QString::fromStdString(DB_TABLE2_COL_ISSUER) + " varchar(20))");
-
-
-
-
     qry->exec();
     DBConnClose();
 
@@ -59,7 +55,7 @@ void MainWindow::createCertTable(){
 void MainWindow::DBConnClose()
 {
     mydb.close();
-    //    mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    mydb.removeDatabase(QSqlDatabase::defaultConnection);
 
 }
 
@@ -83,17 +79,20 @@ bool MainWindow::DBConnOpen()
 }
 void MainWindow::on_genCSRBtn_clicked()
 {
+    newButtonPressed();
     DBConnOpen();
 
-    ui->exportBtn->setEnabled(false);
-
-    //   DBConnClose();
     GenCSR *genCSRObj;
-
     genCSRObj = new GenCSR(this);
     genCSRObj->setModal(true);
     genCSRObj->exec();
+
     DBConnClose();
+
+    //Automatically Update Table of Certs
+    on_refreshBtn_clicked();
+    ui->tableView->resizeColumnsToContents();
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
 
 }
 
@@ -122,23 +121,6 @@ void MainWindow::getCertInfo()
         if(cert->lookupDBCert(DB_FILE_NAME, DB_COL_ID, std::to_string(i))){
 
             string ccert = cert->getCert();
-            //            if(ccert.empty() || ccert.length() < 5)
-            //                continue;
-
-            //  std::cout << cert->getCert()<<std::endl;
-
-
-
-            //   currentCert = cert->getCert();
-            //            std::cout<<"CERTIFICATE INFO\n"
-            //                    <<"==================\n"
-            //                   <<"SUBJECT NAME:"<<cert->getInfo(INFO_SUBJECT_NAME)	<<endl
-            //                  <<"VALID TO:   "<<cert->getInfo(INFO_VALIDTO)	<<endl
-            //                 <<"SERIAL:     "<<cert->getInfo(INFO_SERIAL)	<<endl
-            //                <<"ISSUER NAME:"<<cert->getInfo(INFO_ISSUER_NAME)	<<endl;
-
-
-
 
             QString qryString = "INSERT INTO  " +QString::fromStdString(DB_TABLE2_NAME) + " ("  +
                     QString::fromStdString(DB_TABLE2_COL_ISSUER) + ")"
@@ -161,20 +143,13 @@ void MainWindow::getCertInfo()
             query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_NAME),  QString::fromStdString(cert->getInfo(INFO_SUBJECT_NAME)));
 
             if( QString::fromStdString (cert->getInfo(INFO_VALIDTO)).isEmpty())
-                 query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_EXPIRE), "Pending Certificate..");
-             else
+                query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_EXPIRE), "Pending Certificate.. ");
+            else
                 query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_EXPIRE), QString::fromStdString (cert->getInfo(INFO_VALIDTO)));
 
 
             query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_SERIAL), QString::fromStdString(cert->getInfo(INFO_SERIAL)));
             query->bindValue(":" + QString::fromStdString(DB_TABLE2_COL_ISSUER),  QString::fromStdString(cert->getInfo(INFO_ISSUER_NAME)));
-
-            //            query->prepare("INSERT INTO  " +QString::fromStdString(DB_TABLE2_NAME) + " ("  +
-            //                           QString::fromStdString(DB_TABLE2_COL_ISSUER) + ")"
-            //                                                                          " SELECT " +  QString::fromStdString(DB_COL_ID) +
-            //                           " FROM " + QString::fromStdString(DB_TABLE_NAME)  +
-            //                           " WHERE " +  QString::fromStdString(DB_COL_CERT) + " IS NOT NULL");
-
             query->exec();
 
 
@@ -188,12 +163,14 @@ void MainWindow::getCertInfo()
 
 void MainWindow::on_refreshBtn_clicked()
 {
+    newButtonPressed();
+
     DBConnOpen();
 
-    ui->exportBtn->setEnabled(false);
     createCertTable();
     getCertInfo();
     listCerts();
+
     DBConnClose();
 
 
@@ -230,8 +207,10 @@ void MainWindow::listCerts()
 void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelection &)
 {
 
+
     ui->exportBtn->setEnabled(true);
-    //QModelIndexList selection = ui->tableView->selectionModel()->selectedRows();//Here you are getting the indexes of the selected rows
+
+    //QModelIndexList selection = ui->tableView->selectionModel()->selectedRows();  //Here you are getting the indexes of the selected rows
     QModelIndexList indexes = ui->tableView->selectionModel()->selectedIndexes();
     QModelIndex index;
 
@@ -243,52 +222,42 @@ void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelectio
 
     }
 
-
-    //qDebug() << text;
     qDebug() << intIndx;
-
-
-    //QMessageBox::information(this,tr(""), (selection));
-    //Now you can create your code using this information
 
 
 }
 
 void MainWindow::on_importBtn_clicked()
 {
+
+
     DBConnOpen();
 
-    ui->exportBtn->setEnabled(false);
-
-    //  DBConnClose();
     Import *importObj= new Import(this);
     importObj->setModal(true);
     importObj->exec();
 
     DBConnClose();
+    on_refreshBtn_clicked();
+
+    //newButtonPressed();
 }
 
 void MainWindow::on_exportBtn_clicked()
 {
+
     DBConnOpen();
 
     Export *exportObj = new Export(this,intIndx);
     if (exportObj->foundCertificate()){
-        exportObj->setModal(true);
-        exportObj->exec();
+        Password *pass = new Password(this);
+        pass->setModal(true);
+        pass->exec();
+        //exportObj->setModal(true);
+        //exportObj->exec();
     }
     DBConnClose();
 }
-
-//void MainWindow::on_viewCertBtn_clicked()
-//{
-//    DBConnOpen();
-//    View *viewObj = new View(this,intIndx);
-//    viewObj->setModal(true);
-//    //viewObj->exec();
-//    DBConnClose();
-
-//}
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &intIndx)
 {
@@ -300,4 +269,13 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &intIndx)
     DBConnClose();
 
     qDebug() << "Viewing " << intIndx;
+}
+
+void MainWindow::newButtonPressed()
+{
+    ui->tableView->clearSelection();
+
+    ui->exportBtn->setEnabled(false);
+
+
 }

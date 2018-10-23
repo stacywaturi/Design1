@@ -6,6 +6,10 @@
 #include <QtCore>
 #include <QtGui>
 #include <QMessageBox>
+#include <QAction>
+#include <QLineEdit>
+#include <QToolButton>
+
 #include "TFCertificate.h"
 #include "mainwindow.h"
 
@@ -38,11 +42,19 @@ private slots:
 
 private:
     Ui::GenCSR *ui;
+    QToolButton *button;
+     QToolButton *button2;
+     QIcon icon1, icon2;
     void addCountryItems();
     void addKeySizesItems();
 
     bool createPassword();
     bool enterPassword();
+    void onPressed();
+    void onReleased();
+    void showPassword();
+    void onPressed2();
+    void onReleased2();
 };
 
 #endif // GENCSR_H

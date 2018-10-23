@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
-    <height>370</height>
+    <width>507</width>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -92,6 +92,12 @@
      </item>
      <item>
       <widget class="QLineEdit" name="commonName_lineEdit">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
        <property name="inputMethodHints">
         <set>Qt::ImhNone</set>
        </property>
@@ -191,6 +197,12 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>
     </property>
@@ -203,6 +215,12 @@
       <width>161</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>

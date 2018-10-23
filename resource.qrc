@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="eyeOn">images/eyeOn.png</file>
+        <file alias="eyeOff">images/eyeOff.png</file>
+	<file alias="tfimage">images/tfimage.PNG</file>
+    </qresource>
+</RCC>

@@ -15,6 +15,46 @@ Export::Export(QWidget *parent, int num) :
     ui->confirmPassword_label->setStyleSheet("QLabel {color : red; }");
     ui->password_label->setStyleSheet("QLabel {color : red; }");
 
+    showPassword();
+
+
+}
+
+
+
+void Export::showPassword(){
+
+    QAction *action = ui->password_export_LineEdit->addAction(QIcon(":/eyeOff"), QLineEdit::TrailingPosition);
+    QAction *action2 = ui->confirm_password_export_lineEdit->addAction(QIcon(":/eyeOff"), QLineEdit::TrailingPosition);
+
+    button = qobject_cast<QToolButton *>(action->associatedWidgets().last());
+    button2 = qobject_cast<QToolButton *>(action2->associatedWidgets().last());
+
+    connect(button, &QToolButton::pressed, this, &Export::onPressed);
+    connect(button, &QToolButton::released, this, &Export::onReleased);
+
+    connect(button2, &QToolButton::pressed, this, &Export::onPressed);
+    connect(button2, &QToolButton::released, this, &Export::onReleased);
+
+}
+
+void Export::onPressed(){
+    QToolButton *button = qobject_cast<QToolButton *>(sender());
+
+    button->setIcon(QIcon(":/eyeOn"));
+
+    ui->password_export_LineEdit->setEchoMode(QLineEdit::Normal);
+      ui->confirm_password_export_lineEdit->setEchoMode(QLineEdit::Normal);
+
+}
+
+void Export::onReleased(){
+    QToolButton *button = qobject_cast<QToolButton *>(sender());
+
+    button->setIcon(QIcon(":/eyeOff"));
+
+    ui->password_export_LineEdit->setEchoMode(QLineEdit::Password);
+    ui->confirm_password_export_lineEdit->setEchoMode(QLineEdit::Password);
 
 }
 

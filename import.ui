@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>507</width>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,11 +16,17 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>59</y>
-     <width>371</width>
-     <height>101</height>
+     <x>50</x>
+     <y>70</y>
+     <width>391</width>
+     <height>191</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="title">
     <string>Import Certificate</string>
@@ -33,6 +39,12 @@
       <width>75</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="text">
      <string>Browse..</string>
@@ -47,13 +59,19 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
    </widget>
   </widget>
   <widget class="QPushButton" name="cancelImprt_Btn">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>200</y>
+     <x>320</x>
+     <y>220</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -68,8 +86,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>200</y>
+     <x>220</x>
+     <y>220</y>
      <width>75</width>
      <height>23</height>
     </rect>

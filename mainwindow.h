@@ -11,10 +11,6 @@
 #include <math.h>
 #include "TFCertificate.h"
 
-
-
-
-
 namespace Ui {
 class MainWindow;
 }
@@ -27,7 +23,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    //Connect to Database
+
     QSqlDatabase mydb;
     void DBConnClose();
     bool DBConnOpen();
@@ -39,14 +35,13 @@ private slots:
     void on_exportBtn_clicked();
 
     void slotSelectionChange(const QItemSelection &, const QItemSelection &);
-
-
     void on_tableView_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
     QSqlQueryModel *modal = new QSqlQueryModel();
-    //   TFCertificate *cert = new TFCertificate();
+
+
     int intIndx =0;
     std::string DB_TABLE2_NAME = "CertificateInfoTable";
     std::string DB_TABLE2_COL_ISSUER = "Issuer";
@@ -57,8 +52,7 @@ private:
     void listCerts();
     void getCertInfo();
     void createCertTable();
-
-
+    void newButtonPressed();
 };
 
 #endif // MAINWINDOW_H
