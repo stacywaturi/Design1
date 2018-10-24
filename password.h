@@ -12,7 +12,7 @@ class Password : public QDialog
     Q_OBJECT
 
 public:
-    explicit Password(QWidget *parent = nullptr);
+    explicit Password(QWidget *parent = nullptr, int num= 1);
     ~Password();
 
 private slots:
@@ -22,6 +22,7 @@ private:
     Ui::Password *ui;
     void checkPassword();
     QString _password = "";
+    int _num;
 };
 
 #endif // PASSWORD_H

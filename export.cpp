@@ -44,7 +44,7 @@ void Export::onPressed(){
     button->setIcon(QIcon(":/eyeOn"));
 
     ui->password_export_LineEdit->setEchoMode(QLineEdit::Normal);
-      ui->confirm_password_export_lineEdit->setEchoMode(QLineEdit::Normal);
+    ui->confirm_password_export_lineEdit->setEchoMode(QLineEdit::Normal);
 
 }
 

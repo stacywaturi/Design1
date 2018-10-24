@@ -248,14 +248,15 @@ void MainWindow::on_exportBtn_clicked()
 
     DBConnOpen();
 
-    Export *exportObj = new Export(this,intIndx);
-    if (exportObj->foundCertificate()){
-        Password *pass = new Password(this);
-        pass->setModal(true);
-        pass->exec();
-        //exportObj->setModal(true);
-        //exportObj->exec();
-    }
+    //  Export *exportObj = new Export(this,intIndx);
+    //   if (exportObj->foundCertificate())
+    //    {
+    Password *pass = new Password(this,intIndx);
+    pass->setModal(true);
+    pass->exec();
+    //exportObj->setModal(true);
+    //exportObj->exec();
+    //  }
     DBConnClose();
 }
 
