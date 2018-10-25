@@ -63,9 +63,14 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>20</x>
       <y>60</y>
-      <width>121</width>
+      <width>141</width>
       <height>441</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
     </property>
     <property name="title">
      <string/>
@@ -74,10 +79,15 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
-       <width>101</width>
-       <height>23</height>
+       <y>70</y>
+       <width>121</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Generate CSR</string>
@@ -87,38 +97,27 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>120</y>
-       <width>101</width>
-       <height>23</height>
+       <y>170</y>
+       <width>121</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Import Certificate</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="exportBtn">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>240</y>
-       <width>101</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export Certificate</string>
      </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>170</x>
       <y>60</y>
-      <width>631</width>
+      <width>611</width>
       <height>441</height>
      </rect>
     </property>
@@ -137,7 +136,7 @@ p, li { white-space: pre-wrap; }
        <x>10</x>
        <y>40</y>
        <width>591</width>
-       <height>371</height>
+       <height>321</height>
       </rect>
      </property>
      <property name="font">
@@ -166,6 +165,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="font">
       <font>
+       <pointsize>9</pointsize>
        <weight>50</weight>
        <bold>false</bold>
       </font>
@@ -174,14 +174,60 @@ p, li { white-space: pre-wrap; }
       <string>Refresh</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="exportBtn">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>380</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Export Certificate</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="viewBtn">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>380</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>View Certificate</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="logo_label">
     <property name="geometry">
      <rect>
       <x>40</x>
       <y>10</y>
-      <width>81</width>
-      <height>71</height>
+      <width>91</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">
@@ -191,9 +237,9 @@ p, li { white-space: pre-wrap; }
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>170</x>
       <y>10</y>
-      <width>631</width>
+      <width>611</width>
       <height>41</height>
      </rect>
     </property>

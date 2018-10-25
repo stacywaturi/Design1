@@ -24,6 +24,7 @@ void Dialog::on_copyCSR_Btn_3_clicked()
 
     ui->displayCSR->selectAll();
     ui->displayCSR->copy();
+
     QMessageBox::information(this,tr("CSR"), "CSR Copied To Clipboard");
 
 }
@@ -46,7 +47,4 @@ void Dialog::on_saveCSR_Btn_3_clicked()
         stream  << _CSR;
         QMessageBox::information(this,tr("CSR"), "CSR Saved Successfully");
     }
-
-
-
 }

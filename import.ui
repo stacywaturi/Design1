@@ -34,8 +34,8 @@
    <widget class="QPushButton" name="browseImport_Button">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>30</y>
+      <x>270</x>
+      <y>80</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -54,8 +54,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
-      <width>221</width>
+      <y>80</y>
+      <width>231</width>
       <height>21</height>
      </rect>
     </property>
@@ -64,6 +64,25 @@
       <weight>50</weight>
       <bold>false</bold>
      </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>File Name</string>
     </property>
    </widget>
   </widget>
@@ -82,7 +101,7 @@
   </widget>
   <widget class="QPushButton" name="okImport_Btn">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>

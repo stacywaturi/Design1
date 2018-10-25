@@ -37,6 +37,10 @@ private slots:
     void slotSelectionChange(const QItemSelection &, const QItemSelection &);
     void on_tableView_doubleClicked(const QModelIndex &index);
 
+
+
+    void on_viewBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlQueryModel *modal = new QSqlQueryModel();

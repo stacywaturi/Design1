@@ -16,12 +16,18 @@ public:
     ~Password();
 
 private slots:
-    void on_pushButton_clicked();
+
+
+    void on_OKBtn_clicked();
+
+    void on_cancelBtn_clicked();
+
+
 
 private:
     Ui::Password *ui;
     void checkPassword();
-    QString _password = "";
+    QString _password = "1";
     int _num;
 };
 

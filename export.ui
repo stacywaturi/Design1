@@ -279,7 +279,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Filename:</string>
+     <string>File Name:</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="pfx_radioButton">

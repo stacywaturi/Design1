@@ -23,7 +23,7 @@ class Export : public QDialog
     Q_OBJECT
 
 public:
-    explicit Export(QWidget *parent = nullptr, int num= 1);
+    explicit Export(QWidget *parent = nullptr, TFCertificate *cert = nullptr  ,int num= 1);
 
     ~Export();
 
@@ -45,7 +45,7 @@ private:
     void exportPfx();
      bool createPassword();
 
-    TFCertificate *cert = new TFCertificate();
+   TFCertificate *_cert;
     QString filename;
     int _num;
     QToolButton *button;

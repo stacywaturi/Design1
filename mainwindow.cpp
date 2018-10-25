@@ -209,6 +209,7 @@ void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelectio
 
 
     ui->exportBtn->setEnabled(true);
+    ui->viewBtn->setEnabled(true);
 
     //QModelIndexList selection = ui->tableView->selectionModel()->selectedRows();  //Here you are getting the indexes of the selected rows
     QModelIndexList indexes = ui->tableView->selectionModel()->selectedIndexes();
@@ -248,28 +249,27 @@ void MainWindow::on_exportBtn_clicked()
 
     DBConnOpen();
 
-    //  Export *exportObj = new Export(this,intIndx);
-    //   if (exportObj->foundCertificate())
-    //    {
-    Password *pass = new Password(this,intIndx);
-    pass->setModal(true);
-    pass->exec();
-    //exportObj->setModal(true);
-    //exportObj->exec();
-    //  }
+    Export *exportObj = new Export(this,nullptr,intIndx);
+    if (exportObj->foundCertificate())
+    {
+        Password *pass = new Password(this,intIndx);
+        pass->setModal(true);
+        pass->exec();
+        //exportObj->setModal(true);
+        //exportObj->exec();
+    }
     DBConnClose();
 }
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &intIndx)
 {
     DBConnOpen();
-
     View *viewObj = new View(this,(intIndx.row() +1));
     viewObj->setModal(true);
     //viewObj->exec();
     DBConnClose();
 
-    qDebug() << "Viewing " << intIndx;
+
 }
 
 void MainWindow::newButtonPressed()
@@ -277,6 +277,17 @@ void MainWindow::newButtonPressed()
     ui->tableView->clearSelection();
 
     ui->exportBtn->setEnabled(false);
+    ui->viewBtn->setEnabled(false);
 
 
+}
+
+
+void MainWindow::on_viewBtn_clicked()
+{
+    DBConnOpen();
+    View *viewObj = new View(this,(intIndx));
+    viewObj->setModal(true);
+    //viewObj->exec();
+    DBConnClose();
 }

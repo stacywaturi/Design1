@@ -1,11 +1,14 @@
 #include "export.h"
 #include "ui_export.h"
 
-Export::Export(QWidget *parent, int num) :
+Export::Export(QWidget *parent, TFCertificate *cert, int num) :
     QDialog(parent),
     ui(new Ui::Export)
 {
     _num = num;
+    _cert = cert;
+
+    qDebug()<< QString::fromStdString( _cert->getInfo());
 
 
     ui->setupUi(this);
@@ -84,69 +87,56 @@ void Export::on_export_Button_clicked()
 {
     std::string password = "";
 
-    password = ui->password_label->text().toStdString();
+    password = ui->password_export_LineEdit->text().toStdString();
 
 
-    TFCertificate *cert = new TFCertificate();
-
-    // qDebug() <<"EXPORTING FILENAME" <<filename;
-    // qDebug() << "EXPORTING PASSWORD" <<QString::fromStdString(password);
+    qDebug()<< QString::fromStdString( _cert->getInfo());
 
 
-    if(cert->lookupDBCert(DB_FILE_NAME, DB_COL_ID, std::to_string(_num))){
-        //  qDebug() <<"EXPORTING CERT" << QString::fromStdString(cert->getCert());
-
-        if (createPassword()){
+    if (createPassword()){
 
 
-            if (!filename.isEmpty() && ui->pfx_radioButton->isChecked() ){
-                bool exported =  cert->exportPFX(filename.toStdString(), password);
-                if(exported)
-                    QMessageBox::information(this,tr("Certificate"), "Certificate Exported as .pfx");
-                else
-                    QMessageBox::information(this,tr("Certificate"), "Certificate could not be Exported");
-                log_error();
-                this->close();
-
-            }
-
-            else if (!filename.isEmpty() && !ui->pfx_radioButton->isChecked()){
-
-                QFile file (filename);
-
-                if (file.open(QIODevice::ReadWrite)){
-                    QTextStream stream( &file );
-                    stream  << QString::fromStdString(cert->getCert());
-                    QMessageBox::information(this,tr("Certificate"), "Certificate Exported Successfully");
-                }
-
-                else {
-
-                    QMessageBox::information(this,tr("Certificate"), "Certificate NOT Exported");
-                }
-                log_error();
-                this->close();
-            }
-
-
-
-            else if (filename.isEmpty()){
-
-                ui->exportFieldRequired_label_2->setText("*Required Field");
-            }
-        }
-
-        else{
-            //  QMessageBox::information(this,tr("Certificate"), "Could not not find Certificate");
+        if (!filename.isEmpty() && ui->pfx_radioButton->isChecked() ){
+            bool exported =  _cert->exportPFX(filename.toStdString(), password);
+            if(exported)
+                QMessageBox::information(this,tr("Certificate"), "Certificate Exported as .pfx");
+            else
+                QMessageBox::information(this,tr("Certificate"), "Certificate could not be Exported");
+            log_error();
+            this->close();
 
         }
 
+        else if (!filename.isEmpty() && !ui->pfx_radioButton->isChecked()){
 
+            QFile file (filename);
+
+            if (file.open(QIODevice::ReadWrite)){
+                QTextStream stream( &file );
+                stream  << QString::fromStdString(_cert->getCert());
+                QMessageBox::information(this,tr("Certificate"), "Certificate Exported Successfully");
+            }
+
+            else {
+
+                QMessageBox::information(this,tr("Certificate"), "Certificate NOT Exported");
+            }
+            log_error();
+            this->close();
+        }
+
+
+
+        else if (filename.isEmpty()){
+
+            ui->exportFieldRequired_label_2->setText("*Required Field");
+        }
     }
 
+    else{
+        //  QMessageBox::information(this,tr("Certificate"), "Could not not find Certificate");
 
-
-
+    }
 
 
 }
