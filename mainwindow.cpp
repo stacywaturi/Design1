@@ -66,12 +66,12 @@ bool MainWindow::DBConnOpen()
 
     if (!mydb.open())
     {
-        qDebug()<<("Failed to open DB");
+       // qDebug()<<("Failed to open DB");
         return false;
     }
     else
     {
-        qDebug()<<("Connected to DB");
+       // qDebug()<<("Connected to DB");
         return true;
     }
 
@@ -197,7 +197,7 @@ void MainWindow::listCerts()
     connect(ui->tableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             SLOT(slotSelectionChange(const QItemSelection &, const QItemSelection &))
             );
-    qDebug() << (modal->rowCount());
+   // qDebug() << (modal->rowCount());
 
     DBConnClose();
 
@@ -223,7 +223,7 @@ void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelectio
 
     }
 
-    qDebug() << intIndx;
+ //   qDebug() << intIndx;
 
 
 }
@@ -249,7 +249,8 @@ void MainWindow::on_exportBtn_clicked()
 
     DBConnOpen();
 
-    Export *exportObj = new Export(this,nullptr,intIndx);
+    Export *exportObj = new Export(this,intIndx);
+    //qDebug() << "FOUND " << exportObj->foundCertificate();
     if (exportObj->foundCertificate())
     {
         Password *pass = new Password(this,intIndx);

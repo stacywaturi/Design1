@@ -1,14 +1,15 @@
 #include "export.h"
+#include "dialog.h"
 #include "ui_export.h"
 
-Export::Export(QWidget *parent, TFCertificate *cert, int num) :
+Export::Export(QWidget *parent, int num, TFCertificate *cert) :
     QDialog(parent),
     ui(new Ui::Export)
 {
     _num = num;
     _cert = cert;
 
-    qDebug()<< QString::fromStdString( _cert->getInfo());
+ //   qDebug()<< QString::fromStdString( _cert->getInfo());
 
 
     ui->setupUi(this);
@@ -22,7 +23,6 @@ Export::Export(QWidget *parent, TFCertificate *cert, int num) :
 
 
 }
-
 
 
 void Export::showPassword(){
@@ -66,7 +66,27 @@ bool Export::foundCertificate(){
     TFCertificate *cert = new TFCertificate();
     if(cert->lookupDBCert(DB_FILE_NAME, DB_COL_ID, std::to_string(_num))){
         if(QString::fromStdString(cert->getCert()).isEmpty()){
-            QMessageBox::information(this,tr("Certificate"), "Could not find Certificate");
+            QMessageBox msgBox;
+            msgBox.setStyleSheet("QLabel {min-width:300px; font-size: 12px;}");
+            msgBox.setText("This certificate is not available.");
+            msgBox.setInformativeText("Do you want to view the Certificate Signing Request?");
+            msgBox.setStandardButtons(QMessageBox::Yes| QMessageBox::No );
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int ret = msgBox.exec();
+
+            if(ret == QMessageBox::Yes)
+            {
+          //  QMessageBox::information(this,tr("Certificate"), "Certificate not available, \nPress OK to View/Save CSR");
+
+            QString CSR = QString::fromStdString(cert->getCertReq());
+            Dialog *CSRdisplay = new Dialog(this,CSR);
+            CSRdisplay->show();
+            }
+
+            else {
+                this->close();
+            }
+
             return false;
 
         }
@@ -90,7 +110,7 @@ void Export::on_export_Button_clicked()
     password = ui->password_export_LineEdit->text().toStdString();
 
 
-    qDebug()<< QString::fromStdString( _cert->getInfo());
+   // qDebug()<< QString::fromStdString( _cert->getInfo());
 
 
     if (createPassword()){

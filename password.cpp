@@ -36,17 +36,16 @@ void Password::on_OKBtn_clicked()
 
     TFCertificate   *cert = new TFCertificate();
 
-
     cert->lookupDBCert(DB_FILE_NAME, DB_COL_ID, std::to_string(_num));
-    qDebug() << _num;
+    //qDebug() << _num;
     //  qDebug()<< QString::fromStdString( cert->getInfo(INFO_ALL));
 
     if(cert->verifyPassword(_password.toStdString())){
         cert->setPassword(_password.toStdString());
-        qDebug()<<"Successfully decrypted private key!"<<endl;
+      //  qDebug()<<"Successfully decrypted private key!"<<endl;
 
        this->close();
-        Export *exportObj = new Export(this,cert,_num);
+        Export *exportObj = new Export(this,_num,cert);
 
         exportObj->setModal(true);
         exportObj->exec();
@@ -54,7 +53,7 @@ void Password::on_OKBtn_clicked()
     }
 
     else {
-        qDebug()<<"Passwords do not match! "<<endl;
+       // qDebug()<<"Passwords do not match! "<<endl;
         ui->confirmPassword_label->setText("Incorrect Password");
     }
 }

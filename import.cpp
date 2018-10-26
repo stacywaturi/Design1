@@ -21,7 +21,6 @@ void Import::on_browseImport_Button_clicked()
                 this,
                 tr("Open File"),
                 "C://",
-
                 "All Certificate Types (*.pfx *.p12 *.cer *.crt *.p7b);;"
                 "Personal Information Exchange(*.pfx, *.p12);;"
                 "X.509 Certificate (*.cer, *.crt);;"

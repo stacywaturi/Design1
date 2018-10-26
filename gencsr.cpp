@@ -174,7 +174,7 @@ void GenCSR::gen_CSR(){
         cert->insertDBCert(DB_FILE_NAME);
 
         if (TF_CERT_ERROR_INDEX) {
-            std::cout << "failed\n";
+          //  std::cout << "failed\n";
         }
         log_error();
 

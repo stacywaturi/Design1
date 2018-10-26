@@ -23,7 +23,7 @@ class Export : public QDialog
     Q_OBJECT
 
 public:
-    explicit Export(QWidget *parent = nullptr, TFCertificate *cert = nullptr  ,int num= 1);
+    explicit Export(QWidget *parent = nullptr  ,int num= 1, TFCertificate *cert = nullptr);
 
     ~Export();
 
