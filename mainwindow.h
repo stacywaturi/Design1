@@ -41,6 +41,8 @@ private slots:
 
     void on_viewBtn_clicked();
 
+    void on_loginBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlQueryModel *modal = new QSqlQueryModel();
@@ -53,10 +55,14 @@ private:
     std::string DB_TABLE2_COL_SERIAL = "Serial_Number";
     std::string DB_TABLE2_COL_NAME = "Common_Name";
 
+
+
+
     void listCerts();
     void getCertInfo();
     void createCertTable();
     void newButtonPressed();
+    void createUsernameTable();
 };
 
 #endif // MAINWINDOW_H

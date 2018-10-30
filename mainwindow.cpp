@@ -6,12 +6,17 @@
 #include "view.h"
 #include "password.h"
 #include "TFCertificate.h"
+#include   "login.h"
+
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 
     QPixmap pix(":/tfimage");
     ui->logo_label->setPixmap(pix);
@@ -21,8 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
 
-
-
     createCertTable();
     getCertInfo();
     listCerts();
@@ -30,8 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->resizeColumnsToContents();
 
-    //  ui->tableView->horizontalHeader()->setStretchLastSection(true);
-    //  ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 void MainWindow::createCertTable(){
@@ -66,12 +67,12 @@ bool MainWindow::DBConnOpen()
 
     if (!mydb.open())
     {
-       // qDebug()<<("Failed to open DB");
+        // qDebug()<<("Failed to open DB");
         return false;
     }
     else
     {
-       // qDebug()<<("Connected to DB");
+        // qDebug()<<("Connected to DB");
         return true;
     }
 
@@ -197,7 +198,7 @@ void MainWindow::listCerts()
     connect(ui->tableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             SLOT(slotSelectionChange(const QItemSelection &, const QItemSelection &))
             );
-   // qDebug() << (modal->rowCount());
+    // qDebug() << (modal->rowCount());
 
     DBConnClose();
 
@@ -223,7 +224,7 @@ void MainWindow::slotSelectionChange(const QItemSelection &, const QItemSelectio
 
     }
 
- //   qDebug() << intIndx;
+    //   qDebug() << intIndx;
 
 
 }
@@ -292,3 +293,14 @@ void MainWindow::on_viewBtn_clicked()
     //viewObj->exec();
     DBConnClose();
 }
+
+void MainWindow::on_loginBtn_clicked()
+{
+    DBConnOpen();
+    Login *_login = new Login(this);
+    _login->setModal(true);
+    _login->exec();
+    DBConnClose();
+
+}
+

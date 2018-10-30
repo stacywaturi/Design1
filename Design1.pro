@@ -33,7 +33,8 @@ SOURCES += \
     tf_cert_mngr/src/TFCertificate.cpp \
     tf_cert_mngr/src/sqlite3.c \
     view.cpp \
-    password.cpp
+    password.cpp \
+    login.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
     tf_cert_mngr/include/tf_cert_util.h \
     tf_cert_mngr/include/TFCertificate.h \
     view.h \
-    password.h
+    password.h \
+    login.h
 
 
 FORMS += \
@@ -56,7 +58,8 @@ FORMS += \
     import.ui \
     export.ui \
     dialog.ui \
-    password.ui
+    password.ui \
+    login.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
