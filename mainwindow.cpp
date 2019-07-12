@@ -281,7 +281,6 @@ void MainWindow::newButtonPressed()
     ui->exportBtn->setEnabled(false);
     ui->viewBtn->setEnabled(false);
 
-
 }
 
 

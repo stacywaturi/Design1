@@ -18,8 +18,6 @@ GenCSR::GenCSR(QWidget *parent) :
     icon1.addFile(":/eyeOff",size);
     icon2.addFile(":/eyeOn", size);
 
-
-
     addKeySizesItems();
     showPassword();
 

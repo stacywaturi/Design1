@@ -39,6 +39,7 @@ void Export::showPassword(){
     connect(button2, &QToolButton::pressed, this, &Export::onPressed);
     connect(button2, &QToolButton::released, this, &Export::onReleased);
 
+    button = qobject_cast<QToolButton* >(action->associatedWidgets().last());
 }
 
 void Export::onPressed(){
@@ -186,6 +187,7 @@ bool Export::createPassword()
 
             }
             else {
+
                 ui->confirmPassword_label->setText("Passwords did not match, please try again");
                 ui->confirm_password_export_lineEdit->clear();
                 ui->password_export_LineEdit->clear();

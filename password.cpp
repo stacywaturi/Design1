@@ -13,11 +13,9 @@ Password::Password(QWidget *parent, int num) :
 }
 
 void Password::checkPassword(){
-
     _password = ui->password_export_LineEdit->text();
     if (!_password.isEmpty()){
         // Use password to validate private key
-
     }
 
 }
@@ -34,7 +32,7 @@ void Password::on_OKBtn_clicked()
     checkPassword();
 
 
-    TFCertificate   *cert = new TFCertificate();
+    TFCertificate  *cert = new TFCertificate();
 
     cert->lookupDBCert(DB_FILE_NAME, DB_COL_ID, std::to_string(_num));
     //qDebug() << _num;
@@ -43,6 +41,7 @@ void Password::on_OKBtn_clicked()
     if(cert->verifyPassword(_password.toStdString())){
         cert->setPassword(_password.toStdString());
       //  qDebug()<<"Successfully decrypted private key!"<<endl;
+
 
        this->close();
         Export *exportObj = new Export(this,_num,cert);

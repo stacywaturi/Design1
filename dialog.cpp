@@ -10,8 +10,6 @@ Dialog::Dialog(QWidget *parent, QString CSR) :
     ui->setupUi(this);
     ui->displayCSR->setAlignment(Qt::AlignHCenter);
     ui->displayCSR->setText(_CSR);
-
-
 }
 
 Dialog::~Dialog()

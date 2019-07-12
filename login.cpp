@@ -19,7 +19,7 @@ void Login::createUsernameTable()
     main->DBConnOpen();
 
     QSqlQuery *qry = new QSqlQuery(main->mydb);
-   // qry->prepare("drop table "+ QString::fromStdString(DB_TABLE3_NAME));
+    // qry->prepare("drop table "+ QString::fromStdString(DB_TABLE3_NAME));
     qry->exec();
     qry->prepare("create table "  + QString::fromStdString(DB_TABLE3_NAME) + "(  "  +
                  QString::fromStdString(DB_TABLE3_COL_USERNAME)+ " varchar(20) , " +
@@ -48,8 +48,6 @@ void Login::on_signInBtn_clicked()
     query->bindValue(":username", username);
     query->bindValue(":password", password);
 
-
-
     if (query->exec())
     {
         if (query->next())
@@ -68,7 +66,7 @@ void Login::on_signInBtn_clicked()
     }
     else
     {
-        qDebug() << "Login failed. IQUERY.";
+        qDebug() << "Login failed. Query not executed.";
     }
     main->DBConnClose();
 
